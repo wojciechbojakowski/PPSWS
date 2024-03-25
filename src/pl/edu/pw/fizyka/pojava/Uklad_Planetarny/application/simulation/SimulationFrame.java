@@ -42,15 +42,14 @@ public class SimulationFrame extends JFrame {
 	private Component box;
 	private SimulationFrame tak;
 	
-	private static Locale defaultLocale;
-	private static ResourceBundle bundle;
 	
 	private void createUpPanel() {
 		up.setLayout(new BoxLayout(up,BoxLayout.X_AXIS));
 		box = Box.createHorizontalStrut(tak.getWidth()-200);
-		menuButton = new JButton(bundle.getString("menuText"));
+		menuButton = new JButton(Wyswietl.bundle.getString("menuText"));
         timeText = LocalTime.now().toString();
         timeLabel = new JLabel(timeText);
+        timeLabel.setToolTipText(Wyswietl.bundle.getString("timeText"));
         up.add(menuButton);
         
         box = Box.createHorizontalStrut(this.getWidth()-200);
@@ -69,10 +68,9 @@ public class SimulationFrame extends JFrame {
 	
 	private void initFrameSimulation() {
 		tak = this;
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 600);
-		bundle = ResourceBundle.getBundle("pl.edu.pw.fizyka.pojava.Uklad_Planetarny.Language/Messages", Wyswietl.selectedLocale);
-		setTitle("appTitleText");
+		setTitle(Wyswietl.bundle.getString("appTitleText"));
 		this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
                 //System.out.println("Size Changed");
@@ -85,8 +83,8 @@ public class SimulationFrame extends JFrame {
 		this.initFrameSimulation();
 		
         jfxPanel = new Simulation();
-        stopButton = new JButton(bundle.getString("stopText"));
-        addButton = new JButton(bundle.getString("addText"));
+        stopButton = new JButton(Wyswietl.bundle.getString("stopText"));
+        addButton = new JButton(Wyswietl.bundle.getString("addText"));
         
         up = new JPanel();
         down = new JPanel();
