@@ -7,6 +7,10 @@ import javax.swing.*;
 
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation.SimulationFrame;
 
+/**
+ * @author Michał
+ */
+@SuppressWarnings("serial")
 public class MainMenu extends JFrame{
 	Color backgroundColor = new Color(9, 28, 124);
 	Color buttonColor = new Color(0, 102, 153);
@@ -65,10 +69,28 @@ public class MainMenu extends JFrame{
 		objects.setForeground(Color.white);
 		panelLeft.add(objects);
 		
+		/**
+		 * @author Wojciech + Michał
+		 */
+		ActionListener editListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				@SuppressWarnings("unused")
+				EditObjectFrame edit = new EditObjectFrame();
+			}
+		};
+		buttonEdit.addActionListener(editListener);
+		
+		/**
+		 * @author Wojciech + Michał
+		 */
 		ActionListener addListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				EditObjectFrame edit = new EditObjectFrame();
+				Planet nplanet = new Planet();
+				nplanet.setName("Nowa Planeta");
+				@SuppressWarnings("unused")
+				EditObjectFrame edit = new EditObjectFrame(nplanet);
 			}
 		};
 		buttonAdd.addActionListener(addListener);
@@ -85,6 +107,15 @@ public class MainMenu extends JFrame{
 		};
 		buttonStart.addActionListener(startListener);
 		
+		ActionListener settingsListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				@SuppressWarnings("unused")
+				SettingsFrame sf = new SettingsFrame();
+			}
+		};
+		buttonSettings.addActionListener(settingsListener);
 	}
 
 }

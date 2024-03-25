@@ -3,33 +3,21 @@ package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.sql.Time;
 import java.time.LocalTime;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.geometry.Pos;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Wyswietl;
 
+@SuppressWarnings("serial")
 public class SimulationFrame extends JFrame {
 	private Simulation jfxPanel;
 	private JButton stopButton;
@@ -109,7 +97,8 @@ public class SimulationFrame extends JFrame {
 		Platform.startup(() -> {});
 
         SwingUtilities.invokeLater(() -> {
-            SimulationFrame main = new SimulationFrame();
+            @SuppressWarnings("unused")
+			SimulationFrame main = new SimulationFrame();
         });
 	}
 

@@ -1,8 +1,6 @@
 package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -23,15 +21,10 @@ import javafx.scene.shape.Box;
  * @since 16.03.2024
  */
 
+@SuppressWarnings("serial")
 public class Main2 extends JFrame {
 	private JFXPanel jfxPanel;
-	private JButton stopButton;
-	private JButton addButton;
-	private JButton menuButton;
-	private JLabel timeLabel;
-	
-
-    private void initAndShowGUI() {
+	private void initAndShowGUI() {
         setTitle("3D Animation in JavaFX");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);

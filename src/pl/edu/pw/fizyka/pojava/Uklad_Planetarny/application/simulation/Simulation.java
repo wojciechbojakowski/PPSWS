@@ -2,9 +2,7 @@ package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
@@ -13,8 +11,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.util.Duration;
 
-import javax.swing.*;
-
+@SuppressWarnings("serial")
 public class Simulation extends JFXPanel {
 
     public void createScene() {

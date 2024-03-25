@@ -1,6 +1,5 @@
 package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 
-import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 
@@ -11,20 +10,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.*;
 import javax.swing.JTextField;
 
 import java.awt.Color;
-import java.awt.Dimension;
 
+@SuppressWarnings("serial")
 public class EditObjectFrame extends JFrame {
 	private Planet selectedPlanet;
 	private JPanel panelCenter;
 	
 	private void initMenu() {
 		JPanel selectPanel = new JPanel();
-		DefaultListModel listaElementy = new DefaultListModel();
-		JList lista = new JList(listaElementy);
+		DefaultListModel<String> listaElementy = new DefaultListModel<String>();
+		JList<String> lista = new JList<String>(listaElementy);
 		for (int i=0; i < Wyswietl.planets.size(); i++) {
 			listaElementy.addElement(Wyswietl.planets.get(i).getName());
 		}
@@ -82,7 +80,6 @@ public class EditObjectFrame extends JFrame {
 		endPanel.add(quitButton);
 		panelCenter.add(endPanel);
 		
-		System.out.println("Słucham?");
 	}
 	
 	private void initFrame() {
@@ -96,7 +93,9 @@ public class EditObjectFrame extends JFrame {
 		panelLeft.setBackground(Color.BLUE);
 		this.add(panelLeft);
 		
-		panelCenter = new JPanel(new GridLayout(7,1,20,20));
+		//panelCenter = new JPanel(new GridLayout(7,1,20,20));
+		panelCenter=new JPanel();
+		panelCenter.setLayout(new BoxLayout(panelCenter,BoxLayout.Y_AXIS));
 		panelCenter.setBackground(Color.BLUE);
 		this.add(panelCenter);
 		
@@ -115,6 +114,7 @@ public class EditObjectFrame extends JFrame {
 	}
 	
 	public EditObjectFrame(Planet planet) throws HeadlessException {
+		Wyswietl.planets.add(planet);
 		this.selectedPlanet=planet;
 		initFrame();
 	}

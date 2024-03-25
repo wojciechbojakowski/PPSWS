@@ -10,6 +10,17 @@ public class Wyswietl {
 	public static Locale selectedLocale;
 	public static ResourceBundle bundle;
 	
+	public static void changeLocale(String tekst) {
+		if(tekst=="PL") {
+			selectedLocale = new Locale("pl","PL");
+			bundle=ResourceBundle.getBundle("pl.edu.pw.fizyka.pojava.Uklad_Planetarny.Language/Messages", Wyswietl.selectedLocale);
+		}
+		if(tekst=="ENG") {
+			selectedLocale = new Locale("en","EN");
+			bundle=ResourceBundle.getBundle("pl.edu.pw.fizyka.pojava.Uklad_Planetarny.Language/Messages", Wyswietl.selectedLocale);
+		}
+	}
+	
 	
 	private static void initTestPlanets() {
 		Planet planeta1 = new Planet();
