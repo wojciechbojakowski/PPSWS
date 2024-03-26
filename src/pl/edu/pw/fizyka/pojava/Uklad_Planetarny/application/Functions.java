@@ -11,7 +11,12 @@ public class Functions {
 				planets.get(i).setPositionZ(planets.get(i).getPositionZ()+planets.get(i).getVelocityZ()*t);
 		}
 	}
-	
+	public void velocityChange(List<Planet> planets, double t) {
+		
+	}
+	public void accelerationChange(List<Planet> planets, double t) {
+		
+	}
 	public Functions() {
 		// TODO Auto-generated constructor stub
 	}

@@ -2,6 +2,8 @@ package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -18,6 +20,16 @@ import java.awt.Color;
 public class EditObjectFrame extends JFrame {
 	private Planet selectedPlanet;
 	private JPanel panelCenter;
+	
+	JTextField massText;
+	
+	private void close() {
+		this.setVisible(false);
+		this.dispose();
+	}
+	private void saveChanges() {
+		selectedPlanet.setMass(10);
+	}
 	
 	private void initMenu() {
 		JPanel selectPanel = new JPanel();
@@ -42,40 +54,67 @@ public class EditObjectFrame extends JFrame {
 		panelCenter.add(labelPanel);
 		
 		JPanel massPanel = new JPanel();
-		JTextField massText = new JTextField(Double.toString(selectedPlanet.getMass()));
+		JLabel massLabel = new JLabel(Wyswietl.bundle.getString("massText"));
+		massPanel.add(massLabel);
+		massText = new JTextField(Double.toString(selectedPlanet.getMass()));
 		massPanel.add(massText);
 		panelCenter.add(massPanel);
 		
 		JPanel positionPanel = new JPanel();
+		JLabel pXLabel = new JLabel(Wyswietl.bundle.getString("pXText"));
+		positionPanel.add(pXLabel);
 		JTextField xPositionText = new JTextField(Double.toString(selectedPlanet.getPositionX()));
 		positionPanel.add(xPositionText);
+		JLabel pYLabel = new JLabel(Wyswietl.bundle.getString("pYText"));
+		positionPanel.add(pYLabel);
 		JTextField yPositionText = new JTextField(Double.toString(selectedPlanet.getPositionY()));
 		positionPanel.add(yPositionText);
+		JLabel pZLabel = new JLabel(Wyswietl.bundle.getString("pZText"));
+		positionPanel.add(pZLabel);
 		JTextField zPositionText = new JTextField(Double.toString(selectedPlanet.getPositionZ()));
 		positionPanel.add(zPositionText);
 		panelCenter.add(positionPanel);
 		
 		JPanel velocityPanel = new JPanel();
+		JLabel vXLabel = new JLabel(Wyswietl.bundle.getString("vXText"));
+		velocityPanel.add(vXLabel);
 		JTextField xVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityX()));
 		velocityPanel.add(xVelocityText);
+		JLabel vYLabel = new JLabel(Wyswietl.bundle.getString("vYText"));
+		velocityPanel.add(vYLabel);
 		JTextField yVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityY()));
 		velocityPanel.add(yVelocityText);
+		JLabel vZLabel = new JLabel(Wyswietl.bundle.getString("vZText"));
+		velocityPanel.add(vZLabel);
 		JTextField zVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityZ()));
 		velocityPanel.add(zVelocityText);
 		panelCenter.add(velocityPanel);
 		
 		JPanel accelerationPanel = new JPanel();
+		JLabel aXLabel = new JLabel(Wyswietl.bundle.getString("aXText"));
+		accelerationPanel.add(aXLabel);
 		JTextField xAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationX()));
 		accelerationPanel.add(xAccelerationText);
+		JLabel aYLabel = new JLabel(Wyswietl.bundle.getString("aYText"));
+		accelerationPanel.add(aYLabel);
 		JTextField yAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationY()));
 		accelerationPanel.add(yAccelerationText);
+		JLabel aZLabel = new JLabel(Wyswietl.bundle.getString("aZText"));
+		accelerationPanel.add(aZLabel);
 		JTextField zAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationZ()));
 		accelerationPanel.add(zAccelerationText);
 		panelCenter.add(accelerationPanel);
 		
 		JPanel endPanel = new JPanel();
 		JButton quitButton = new JButton("quit");
+		quitButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				close();
+			}
+		});
 		JButton saveButton = new JButton("Save changes");
+		
 		endPanel.add(saveButton);
 		endPanel.add(quitButton);
 		panelCenter.add(endPanel);
