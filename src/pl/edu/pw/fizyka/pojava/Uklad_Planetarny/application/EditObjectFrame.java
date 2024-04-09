@@ -27,6 +27,8 @@ public class EditObjectFrame extends JFrame {
 		this.setVisible(false);
 		this.dispose();
 	}
+	
+	@SuppressWarnings("unused")
 	private void saveChanges() {
 		selectedPlanet.setMass(10);
 	}
