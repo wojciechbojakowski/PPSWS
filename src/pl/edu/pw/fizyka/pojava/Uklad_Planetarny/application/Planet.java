@@ -52,7 +52,7 @@ public class Planet {
 	public void setVelocityY(double velocity) {
 		this.velocity[1] = velocity;
 	}
-	public void setVelocity(double velocity) {
+	public void setVelocityZ(double velocity) {
 		this.velocity[2] = velocity;
 	}
 

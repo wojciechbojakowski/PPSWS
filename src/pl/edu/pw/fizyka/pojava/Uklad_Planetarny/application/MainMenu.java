@@ -39,32 +39,32 @@ public class MainMenu extends JFrame{
 		title.setForeground(Color.white);
 		panelCenter.add(title);
 		
-		JButton buttonStart = new JButton("START");
+		JButton buttonStart = new JButton(Wyswietl.bundle.getString("startText"));
 		buttonStart.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonStart.setBackground(buttonColor);
 		buttonStart.setForeground(Color.white);
 		panelCenter.add(buttonStart);
 		
-		JButton buttonAdd = new JButton("DODAJ OBIEKT");
+		JButton buttonAdd = new JButton(Wyswietl.bundle.getString("addObjText"));
 		buttonAdd.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonAdd.setBackground(buttonColor);
 		buttonAdd.setForeground(Color.white);
 		panelCenter.add(buttonAdd);
 		
-		JButton buttonEdit = new JButton("EDYTUJ OBIEKT");
+		JButton buttonEdit = new JButton(Wyswietl.bundle.getString("editText"));
 		buttonEdit.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonEdit.setBackground(buttonColor);
 		buttonEdit.setForeground(Color.white);
 		panelCenter.add(buttonEdit);
 
-		JButton buttonSettings = new JButton("USTAWIENIA");
+		JButton buttonSettings = new JButton(Wyswietl.bundle.getString("settingsText"));
 		buttonSettings.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonSettings.setBackground(buttonColor);
 		buttonSettings.setForeground(Color.white);
 		panelCenter.add(buttonSettings);
 		
 		JLabel objects = new JLabel();
-		objects.setText("Spis obiektów: ");
+		objects.setText(Wyswietl.bundle.getString("listObjText"));
 		objects.setFont(new Font("Arial", Font.PLAIN, 40));
 		objects.setForeground(Color.white);
 		panelLeft.add(objects);
