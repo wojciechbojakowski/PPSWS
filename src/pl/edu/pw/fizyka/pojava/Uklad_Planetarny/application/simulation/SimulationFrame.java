@@ -88,13 +88,19 @@ public class SimulationFrame extends JFrame {
         this.add(up,BorderLayout.PAGE_START);
         this.add(down,BorderLayout.PAGE_END);
         
-        Platform.runLater(jfxPanel::createScene);
-        
+        //Platform.runLater(jfxPanel::createScene);
+        //Start JAVAFX PANEL AND GENERATE WHAT HAPPENS NEXT
+        Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				jfxPanel.initFX();
+			}
+        });
         this.setVisible(true);
         }
-
-	public static void main(String[] args) {
-		Platform.startup(() -> {});
+	
+	public static void startAnimation() {
+		Platform.startup(()->{});
 
         SwingUtilities.invokeLater(() -> {
             @SuppressWarnings("unused")

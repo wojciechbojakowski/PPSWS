@@ -67,14 +67,6 @@ public class Main2 extends JFrame {
         scene.setCamera(camera);
 
         jfxPanel.setScene(scene);
-
-        // Create a Timeline to rotate the box
-		/*
-		 * Timeline timeline = new Timeline( new KeyFrame(Duration.seconds(0), event ->
-		 * { // Define rotation animation box.setRotate(box.getRotate() + 1); }), new
-		 * KeyFrame(Duration.seconds(0.01)) );
-		 * timeline.setCycleCount(Timeline.INDEFINITE); timeline.play();
-		 */
      
     }
 

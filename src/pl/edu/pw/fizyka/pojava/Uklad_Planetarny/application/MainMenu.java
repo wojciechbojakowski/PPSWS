@@ -69,6 +69,8 @@ public class MainMenu extends JFrame{
 		objects.setForeground(Color.white);
 		panelLeft.add(objects);
 		
+		MainMenu that = this;
+		
 		/**
 		 * @author Wojciech + Michał
 		 */
@@ -76,7 +78,8 @@ public class MainMenu extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				@SuppressWarnings("unused")
-				EditObjectFrame edit = new EditObjectFrame();
+				EditObjectFrame edit = new EditObjectFrame(that);
+				that.setVisible(false);
 			}
 		};
 		buttonEdit.addActionListener(editListener);
@@ -90,7 +93,8 @@ public class MainMenu extends JFrame{
 				Planet nplanet = new Planet();
 				nplanet.setName("Nowa Planeta");
 				@SuppressWarnings("unused")
-				EditObjectFrame edit = new EditObjectFrame(nplanet);
+				EditObjectFrame edit = new EditObjectFrame(that,nplanet);
+				that.setVisible(false);
 			}
 		};
 		buttonAdd.addActionListener(addListener);
@@ -102,7 +106,8 @@ public class MainMenu extends JFrame{
 		ActionListener startListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				SimulationFrame.main(null);
+				SimulationFrame.startAnimation();
+				that.setVisible(false);
 			}
 		};
 		buttonStart.addActionListener(startListener);
@@ -116,6 +121,11 @@ public class MainMenu extends JFrame{
 			}
 		};
 		buttonSettings.addActionListener(settingsListener);
+	}
+	
+	public void makeVisible() {
+		this.revalidate();
+		this.setVisible(true);
 	}
 
 }

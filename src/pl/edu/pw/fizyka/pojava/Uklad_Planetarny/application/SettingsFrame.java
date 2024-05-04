@@ -2,9 +2,12 @@ package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +15,8 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class SettingsFrame extends JFrame {
+	private JLabel text;
+	private JLabel text2;
 	
 	private void initFrame() {
 		setTitle("Settings - PPSWS");
@@ -43,11 +48,22 @@ public class SettingsFrame extends JFrame {
         languageSelect.setEditable(true);
         panelMain.add(languageSelect);
         
+        JButton saveSettingsButton = new JButton("Save Settings");
+        SettingsFrame that = this;
+        saveSettingsButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				text = new JLabel(Wyswietl.bundle.getString("developmentText"));
+				text2 = new JLabel(Wyswietl.bundle.getString("authorText"));
+				that.repaint();
+			}
+        });
+        panelMain.add(saveSettingsButton);
         
-        JLabel text = new JLabel(Wyswietl.bundle.getString("developmentText"));
-        panelMain.add(text);
-        JLabel text2 = new JLabel(Wyswietl.bundle.getString("authorText"));
-        panelMain.add(text2);
+        this.text = new JLabel(Wyswietl.bundle.getString("developmentText"));
+        panelMain.add(this.text);
+        this.text2 = new JLabel(Wyswietl.bundle.getString("authorText"));
+        panelMain.add(this.text2);
         
 	}
 
