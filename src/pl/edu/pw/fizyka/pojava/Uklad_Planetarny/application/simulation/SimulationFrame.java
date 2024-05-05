@@ -116,6 +116,7 @@ public class SimulationFrame extends JFrame {
 							System.out.println("Kolejny sukces!!!!!");
 							stopButton.setText(Wyswietl.bundle.getString("stopText"));
 						}	
+						//System.out.println("EDT: "+SwingUtilities.isEventDispatchThread());
 						return null;
 					}
 				};worker.execute();
