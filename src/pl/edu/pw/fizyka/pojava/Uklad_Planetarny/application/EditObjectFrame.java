@@ -38,8 +38,8 @@ public class EditObjectFrame extends JFrame {
 		JPanel selectPanel = new JPanel();
 		DefaultListModel<String> listaElementy = new DefaultListModel<String>();
 		JList<String> lista = new JList<String>(listaElementy);
-		for (int i=0; i < Wyswietl.planets.size(); i++) {
-			listaElementy.addElement(Wyswietl.planets.get(i).getName());
+		for (int i=0; i < MainMenu.planets.size(); i++) {
+			listaElementy.addElement(MainMenu.planets.get(i).getName());
 		}
 		//lista.addListSelectionListener(listaListener);
 		lista.setVisibleRowCount(5);
@@ -118,6 +118,7 @@ public class EditObjectFrame extends JFrame {
 				close();
 			}
 		});
+		
 		JButton saveButton = new JButton(Wyswietl.bundle.getString("saveText"));
 		
 		ActionListener saveListener = new ActionListener() {//odpalanie funkcji z obliczeniami
@@ -148,6 +149,26 @@ public class EditObjectFrame extends JFrame {
 		saveButton.addActionListener(saveListener);
 		
 		JButton deleteButton = new JButton(Wyswietl.bundle.getString("deleteText"));
+
+		ActionListener deleteListener = new ActionListener() {//odpalanie funkcji z obliczeniami
+			@Override 
+			public void actionPerformed(ActionEvent arg0) {
+				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
+					protected Void doInBackground() throws Exception {
+							for(int i= 0; i<MainMenu.planets.size(); i++ ) {
+								if(lista.isSelectedIndex(i)) {
+									MainMenu.deletePlanet(i);
+									System.out.println(i);
+								}
+							}
+						System.out.println("usuwa  się!");
+						
+						return null;
+						}
+				};worker.execute();
+			}
+		};
+		deleteButton.addActionListener(deleteListener);
 		
 		endPanel.add(saveButton);
 		endPanel.add(deleteButton);
