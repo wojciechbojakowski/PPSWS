@@ -3,6 +3,9 @@ package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation.SimulationFrame;
@@ -14,6 +17,12 @@ import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation.Simulatio
 public class MainMenu extends JFrame{
 	Color backgroundColor = new Color(9, 28, 124);
 	Color buttonColor = new Color(0, 102, 153);
+	//początek bzdur
+	public static List<Planet> planets = new ArrayList<Planet>();
+	static int d = 0; //chwilowa zmienna - odpala funkcje liczącze
+	double time = 1;
+	static JButton buttonStart;
+	//koniec bzdur
 	public MainMenu() {
 		this.setSize(1600,1000);
 		this.setLocationRelativeTo(null);
@@ -39,7 +48,7 @@ public class MainMenu extends JFrame{
 		title.setForeground(Color.white);
 		panelCenter.add(title);
 		
-		JButton buttonStart = new JButton(Wyswietl.bundle.getString("startText"));
+		buttonStart = new JButton(Wyswietl.bundle.getString("startText"));
 		buttonStart.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonStart.setBackground(buttonColor);
 		buttonStart.setForeground(Color.white);
@@ -107,6 +116,27 @@ public class MainMenu extends JFrame{
 		};
 		buttonStart.addActionListener(startListener);
 		
+		ActionListener calculationListener = new ActionListener() {//odpalanie funkcji z obliczeniami
+			@Override 
+			public void actionPerformed(ActionEvent arg0) {
+				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
+					protected Void doInBackground() throws Exception {
+						System.out.println("coś działa");
+						d = 1;
+						while(d == 1){
+							Functions.positionChange(planets, time);
+							Functions.accelerationChange(planets, time);
+							Functions.velocityChange(planets, time);
+							time++;//nie mamy jeszcze funkcji do czasu więc tak go zmieniam
+							System.out.println(planets.get(1).getPositionX());// tu wyrzucam żeby sprawdzić czy coś się dzieje
+						}
+						return null;
+						}
+				};worker.execute();
+			}
+		};
+		buttonStart.addActionListener(calculationListener);
+		
 		ActionListener settingsListener = new ActionListener() {
 
 			@Override
@@ -117,5 +147,22 @@ public class MainMenu extends JFrame{
 		};
 		buttonSettings.addActionListener(settingsListener);
 	}
-
+	public static int getD() {
+		return d;
+	}
+	public static void setD(int d) {
+		MainMenu.d = d;
+	}
+	public static List<Planet> getPlanets() {
+		return planets;
+	}
+	public static void setPlanets(List<Planet> planets) {
+		MainMenu.planets = planets;
+	}
+	public static void addPlanet(Planet planet) {
+		planets.add(planet);
+	}
+	public static JButton getButtonStart() {
+		return buttonStart;
+	}	
 }

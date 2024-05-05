@@ -4,22 +4,22 @@ package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 import java.util.*;
 
 public class Functions {
-	double G=1;
-	public void positionChange(List<Planet> planets, double t){
+	static double  G=1;
+	public static void positionChange(List<Planet> planets, double t){
 		for(int i=0; i<planets.size(); i++) {
 				planets.get(i).setPositionX(planets.get(i).getPositionX()+planets.get(i).getVelocityX()*t);
 				planets.get(i).setPositionY(planets.get(i).getPositionY()+planets.get(i).getVelocityY()*t);
 				planets.get(i).setPositionZ(planets.get(i).getPositionZ()+planets.get(i).getVelocityZ()*t);
 		}
 	}
-	public void velocityChange(List<Planet> planets, double t) {
+	public static void velocityChange(List<Planet> planets, double t) {
 		for(int i=0; i<planets.size(); i++) {
 			planets.get(i).setVelocityX(planets.get(i).getVelocityX()+planets.get(i).getAccelerationX()*t);
 			planets.get(i).setVelocityY(planets.get(i).getVelocityY()+planets.get(i).getAccelerationY()*t);
 			planets.get(i).setVelocityZ(planets.get(i).getVelocityZ()+planets.get(i).getAccelerationZ()*t);
 		}
 	}
-	public void accelerationChange(List<Planet> planets, double t) {
+	public static void accelerationChange(List<Planet> planets, double t) {
 		for(int i=0; i<planets.size(); i++) {
 			for(int j=0; j<planets.size(); j++) {
 				if(j==i)continue;

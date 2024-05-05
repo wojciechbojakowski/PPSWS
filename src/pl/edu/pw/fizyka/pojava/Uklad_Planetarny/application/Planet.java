@@ -1,5 +1,6 @@
 package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 
+import java.util.Random;
 
 public class Planet {
 	String name;
@@ -7,6 +8,7 @@ public class Planet {
 	double velocity[] = new double[3];
 	double acceleration[] = new double[3];
 	double mass;
+	Random r;
 	
 	public String getName() {
 		return name;
@@ -85,16 +87,17 @@ public class Planet {
 	}
 
 	public Planet() {
+		r = new Random();
 		name = "Dziobak";
 		mass = 1;
 		for(int i=0; i<3;i++) {
-			position[i]=0;
+			position[i]=100000*r.nextDouble();;
 		}
 		for(int i=0; i<3;i++) {
-			acceleration[i]=0;
+			acceleration[i]=100000*r.nextDouble();;
 		}
 		for(int i=0; i<3;i++) {
-			velocity[i]=0;
+			velocity[i]=100000*r.nextDouble();;
 		}
 	}
 
