@@ -14,13 +14,9 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-<<<<<<< HEAD
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-=======
-import javax.swing.SwingWorker;
->>>>>>> b36faa4d3d30cd44f2faab24dda5269a02619a0b
 
 import java.awt.Color;
 
@@ -131,14 +127,8 @@ public class EditObjectFrame extends JFrame {
 		
 		
 		JPanel labelPanel = new JPanel();
-<<<<<<< HEAD
 		nameLabel = new JTextField(selectedPlanet.getName());
-=======
-		JLabel nameLabel = new JLabel(Wyswietl.bundle.getString("nameText"));
->>>>>>> b36faa4d3d30cd44f2faab24dda5269a02619a0b
 		labelPanel.add(nameLabel);
-		JTextField nameText = new JTextField(selectedPlanet.getName());
-		labelPanel.add(nameText);
 		panelCenter.add(labelPanel);
 		
 		JPanel massPanel = new JPanel();
@@ -151,21 +141,12 @@ public class EditObjectFrame extends JFrame {
 		JPanel positionPanel = new JPanel();
 		JLabel pXLabel = new JLabel(Wyswietl.bundle.getString("pXText"));
 		positionPanel.add(pXLabel);
-<<<<<<< HEAD
 		xPositionText = new JTextField(Double.toString(selectedPlanet.getPositionX()));
 		positionPanel.add(xPositionText);
 		JLabel pYLabel = new JLabel(Wyswietl.bundle.getString("pYText"));
 		positionPanel.add(pYLabel);
 		yPositionText = new JTextField(Double.toString(selectedPlanet.getPositionY()));
 		positionPanel.add(yPositionText);
-=======
-		JTextField xPositionText = new JTextField(Double.toString(selectedPlanet.getPositionX()));
-		positionPanel.add(xPositionText);		
-		JLabel pYLabel = new JLabel(Wyswietl.bundle.getString("pYText"));
-		positionPanel.add(pYLabel);
-		JTextField yPositionText = new JTextField(Double.toString(selectedPlanet.getPositionY()));
-		positionPanel.add(yPositionText);		
->>>>>>> b36faa4d3d30cd44f2faab24dda5269a02619a0b
 		JLabel pZLabel = new JLabel(Wyswietl.bundle.getString("pZText"));
 		positionPanel.add(pZLabel);
 		zPositionText = new JTextField(Double.toString(selectedPlanet.getPositionZ()));
@@ -219,33 +200,6 @@ public class EditObjectFrame extends JFrame {
                  }
          });
 
-		
-		ActionListener saveListener = new ActionListener() {//odpalanie funkcji z obliczeniami
-			@Override 
-			public void actionPerformed(ActionEvent arg0) {
-				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
-					protected Void doInBackground() throws Exception {
-						Planet planet = new Planet();
-						planet.setName(nameText.getName());
-						planet.setMass(Double.parseDouble(massText.getText()));
-						planet.setPositionX(Double.parseDouble(xPositionText.getText()));
-						planet.setPositionY(Double.parseDouble(yPositionText.getText()));
-						planet.setPositionZ(Double.parseDouble(zPositionText.getText()));
-						planet.setVelocityX(Double.parseDouble(xVelocityText.getText()));
-						planet.setVelocityY(Double.parseDouble(yVelocityText.getText()));
-						planet.setVelocityZ(Double.parseDouble(zVelocityText.getText()));
-						planet.setAccelerationX(Double.parseDouble(xAccelerationText.getText()));
-						planet.setAccelerationY(Double.parseDouble(yAccelerationText.getText()));
-						planet.setAccelerationZ(Double.parseDouble(zAccelerationText.getText()));
-						MainMenu.addPlanet(planet);
-						System.out.println("zapisuje się!");
-						
-						return null;
-						}
-				};worker.execute();
-			}
-		};
-		saveButton.addActionListener(saveListener);
 		
 		JButton deleteButton = new JButton(Wyswietl.bundle.getString("deleteText"));
 		

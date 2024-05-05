@@ -12,15 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-<<<<<<< HEAD
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-=======
 import javax.swing.SwingWorker;
->>>>>>> b36faa4d3d30cd44f2faab24dda5269a02619a0b
 
 import java.awt.Color;
 
@@ -28,69 +21,17 @@ import java.awt.Color;
 public class EditObjectFrame extends JFrame {
 	private Planet selectedPlanet;
 	private JPanel panelCenter;
-	private MainMenu that;
 	
 	JTextField massText;
-	JTextField nameLabel;
-	JTextField xPositionText;
-	JTextField yPositionText;
-	JTextField zPositionText;
-	JTextField xVelocityText;
-	JTextField yVelocityText;
-	JTextField zVelocityText;
-	JTextField xAccelerationText;
-	JTextField yAccelerationText;
-	JTextField zAccelerationText;
 	
 	private void close() {
-		that.makeVisible();
 		this.setVisible(false);
 		this.dispose();
 	}
 	
+	@SuppressWarnings("unused")
 	private void saveChanges() {
 		selectedPlanet.setMass(10);
-		selectedPlanet.setName(nameLabel.getText());
-		float x = 0,y = 0,z = 0;
-		try {
-			x=Float.valueOf(xPositionText.getText());
-			y=Float.valueOf(yPositionText.getText());
-			z=Float.valueOf(zPositionText.getText());
-		} catch (NumberFormatException e) {
-			//e.printStackTrace();
-			x=0;
-			y=0;
-			z=0;
-			System.err.println("Position Save Error");
-		}finally {
-			selectedPlanet.setPositionX(x);
-			selectedPlanet.setPositionY(y);
-			selectedPlanet.setPositionZ(z);
-		}
-		
-		try {
-			x=Float.valueOf(xVelocityText.getText());
-			y=Float.valueOf(yVelocityText.getText());
-			z=Float.valueOf(zVelocityText.getText());
-		} catch (NumberFormatException e) {
-			System.err.println("Position Save Error");
-		}finally {
-			selectedPlanet.setVelocityX(x);
-			selectedPlanet.setVelocityY(y);
-			selectedPlanet.setVelocityZ(z);
-		}
-		
-		try {
-			Float.valueOf(xAccelerationText.getText());
-			Float.valueOf(yAccelerationText.getText());
-			Float.valueOf(zAccelerationText.getText());
-		} catch (NumberFormatException e) {
-			System.err.println("Position Save Error");
-		}finally {
-			selectedPlanet.setAccelerationX(x);
-			selectedPlanet.setAccelerationY(y);
-			selectedPlanet.setAccelerationZ(z);
-		}
 	}
 	
 	private void initMenu() {
@@ -100,42 +41,18 @@ public class EditObjectFrame extends JFrame {
 		for (int i=0; i < Wyswietl.planets.size(); i++) {
 			listaElementy.addElement(Wyswietl.planets.get(i).getName());
 		}
-		lista.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-				
-				if (lsm.isSelectionEmpty()) {
-	                System.err.println("Selection went wrong");
-	            } else {
-	                // Find out which indexes are selected.
-	                int minIndex = lsm.getMinSelectionIndex();
-	                int maxIndex = lsm.getMaxSelectionIndex();
-	                for (int i = minIndex; i <= maxIndex; i++) {
-	                    if (lsm.isSelectedIndex(i)) {
-	                    	System.out.println(" " + i);
-	                    }
-	                }
-	            }
-				
-			}
-		});
-		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		//lista.setVisibleRowCount(5);
-		JScrollPane listScrollPane = new JScrollPane(lista);
+		//lista.addListSelectionListener(listaListener);
+		lista.setVisibleRowCount(5);
+		//JScrollPane listScrollPane = new JScrollPane(lista);
 		//listScrollPane.setPreferredSize( new Dimension(300,100));
-		selectPanel.add(listScrollPane);
+		selectPanel.add(lista);
 		panelCenter.add(selectPanel);
 		
 		selectedPlanet = Wyswietl.planets.get(0);
 		
 		
 		JPanel labelPanel = new JPanel();
-<<<<<<< HEAD
-		nameLabel = new JTextField(selectedPlanet.getName());
-=======
 		JLabel nameLabel = new JLabel(Wyswietl.bundle.getString("nameText"));
->>>>>>> b36faa4d3d30cd44f2faab24dda5269a02619a0b
 		labelPanel.add(nameLabel);
 		JTextField nameText = new JTextField(selectedPlanet.getName());
 		labelPanel.add(nameText);
@@ -151,54 +68,45 @@ public class EditObjectFrame extends JFrame {
 		JPanel positionPanel = new JPanel();
 		JLabel pXLabel = new JLabel(Wyswietl.bundle.getString("pXText"));
 		positionPanel.add(pXLabel);
-<<<<<<< HEAD
-		xPositionText = new JTextField(Double.toString(selectedPlanet.getPositionX()));
-		positionPanel.add(xPositionText);
-		JLabel pYLabel = new JLabel(Wyswietl.bundle.getString("pYText"));
-		positionPanel.add(pYLabel);
-		yPositionText = new JTextField(Double.toString(selectedPlanet.getPositionY()));
-		positionPanel.add(yPositionText);
-=======
 		JTextField xPositionText = new JTextField(Double.toString(selectedPlanet.getPositionX()));
 		positionPanel.add(xPositionText);		
 		JLabel pYLabel = new JLabel(Wyswietl.bundle.getString("pYText"));
 		positionPanel.add(pYLabel);
 		JTextField yPositionText = new JTextField(Double.toString(selectedPlanet.getPositionY()));
 		positionPanel.add(yPositionText);		
->>>>>>> b36faa4d3d30cd44f2faab24dda5269a02619a0b
 		JLabel pZLabel = new JLabel(Wyswietl.bundle.getString("pZText"));
 		positionPanel.add(pZLabel);
-		zPositionText = new JTextField(Double.toString(selectedPlanet.getPositionZ()));
+		JTextField zPositionText = new JTextField(Double.toString(selectedPlanet.getPositionZ()));
 		positionPanel.add(zPositionText);
 		panelCenter.add(positionPanel);
 		
 		JPanel velocityPanel = new JPanel();
 		JLabel vXLabel = new JLabel(Wyswietl.bundle.getString("vXText"));
 		velocityPanel.add(vXLabel);
-		xVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityX()));
+		JTextField xVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityX()));
 		velocityPanel.add(xVelocityText);
 		JLabel vYLabel = new JLabel(Wyswietl.bundle.getString("vYText"));
 		velocityPanel.add(vYLabel);
-		yVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityY()));
+		JTextField yVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityY()));
 		velocityPanel.add(yVelocityText);
 		JLabel vZLabel = new JLabel(Wyswietl.bundle.getString("vZText"));
 		velocityPanel.add(vZLabel);
-		zVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityZ()));
+		JTextField zVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityZ()));
 		velocityPanel.add(zVelocityText);
 		panelCenter.add(velocityPanel);
 		
 		JPanel accelerationPanel = new JPanel();
 		JLabel aXLabel = new JLabel(Wyswietl.bundle.getString("aXText"));
 		accelerationPanel.add(aXLabel);
-		xAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationX()));
+		JTextField xAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationX()));
 		accelerationPanel.add(xAccelerationText);
 		JLabel aYLabel = new JLabel(Wyswietl.bundle.getString("aYText"));
 		accelerationPanel.add(aYLabel);
-		yAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationY()));
+		JTextField yAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationY()));
 		accelerationPanel.add(yAccelerationText);
 		JLabel aZLabel = new JLabel(Wyswietl.bundle.getString("aZText"));
 		accelerationPanel.add(aZLabel);
-		zAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationZ()));
+		JTextField zAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationZ()));
 		accelerationPanel.add(zAccelerationText);
 		panelCenter.add(accelerationPanel);
 		
@@ -210,15 +118,7 @@ public class EditObjectFrame extends JFrame {
 				close();
 			}
 		});
-
 		JButton saveButton = new JButton(Wyswietl.bundle.getString("saveText"));
-        saveButton.addActionListener(new ActionListener() {
-                 @Override
-                 public void actionPerformed(ActionEvent e) {
-                         saveChanges();
-                 }
-         });
-
 		
 		ActionListener saveListener = new ActionListener() {//odpalanie funkcji z obliczeniami
 			@Override 
@@ -282,21 +182,14 @@ public class EditObjectFrame extends JFrame {
         this.setVisible(true);
 	}
 
-	public EditObjectFrame(MainMenu t) throws HeadlessException {
-		that=t;
+	public EditObjectFrame() throws HeadlessException {
+		
 		initFrame();
 	}
 	
-	public EditObjectFrame(MainMenu t,Planet planet) throws HeadlessException {
-		that=t;
+	public EditObjectFrame(Planet planet) throws HeadlessException {
 		Wyswietl.planets.add(planet);
 		this.selectedPlanet=planet;
-		initFrame();
-	}
-
-	public EditObjectFrame(Planet nplanet) {
-		Wyswietl.planets.add(nplanet);
-		this.selectedPlanet=nplanet;
 		initFrame();
 	}
 }
