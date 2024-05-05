@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class EditObjectFrame extends JFrame {
+public class EditObjectFrame2 extends JFrame {
 	private Planet selectedPlanet;
 	private JPanel panelCenter;
 	private MainMenu that;
@@ -193,12 +193,13 @@ public class EditObjectFrame extends JFrame {
 		});
 
 		JButton saveButton = new JButton(Wyswietl.bundle.getString("saveText"));
-        saveButton.addActionListener(new ActionListener() {
+         saveButton.addActionListener(new ActionListener() {
                  @Override
                  public void actionPerformed(ActionEvent e) {
                          saveChanges();
                  }
          });
+=======
 
 		
 		JButton deleteButton = new JButton(Wyswietl.bundle.getString("deleteText"));
@@ -236,19 +237,19 @@ public class EditObjectFrame extends JFrame {
         this.setVisible(true);
 	}
 
-	public EditObjectFrame(MainMenu t) throws HeadlessException {
+	public EditObjectFrame2(MainMenu t) throws HeadlessException {
 		that=t;
 		initFrame();
 	}
 	
-	public EditObjectFrame(MainMenu t,Planet planet) throws HeadlessException {
+	public EditObjectFrame2(MainMenu t,Planet planet) throws HeadlessException {
 		that=t;
 		Wyswietl.planets.add(planet);
 		this.selectedPlanet=planet;
 		initFrame();
 	}
 
-	public EditObjectFrame(Planet nplanet) {
+	public EditObjectFrame2(Planet nplanet) {
 		Wyswietl.planets.add(nplanet);
 		this.selectedPlanet=nplanet;
 		initFrame();
