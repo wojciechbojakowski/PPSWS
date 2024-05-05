@@ -184,15 +184,15 @@ public class EditObjectFrame extends JFrame {
 		panelCenter.add(accelerationPanel);
 		
 		JPanel endPanel = new JPanel();
-		JButton quitButton = new JButton("quit");
+		JButton quitButton = new JButton(Wyswietl.bundle.getString("quitText"));
 		quitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				close();
 			}
 		});
-		
-		JButton saveButton = new JButton("Save changes");
+
+		JButton saveButton = new JButton(Wyswietl.bundle.getString("saveText"));
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -200,7 +200,10 @@ public class EditObjectFrame extends JFrame {
 			}
 		});
 		
+		JButton deleteButton = new JButton(Wyswietl.bundle.getString("deleteText"));
+		
 		endPanel.add(saveButton);
+		endPanel.add(deleteButton);
 		endPanel.add(quitButton);
 		panelCenter.add(endPanel);
 		
@@ -241,6 +244,12 @@ public class EditObjectFrame extends JFrame {
 		that=t;
 		Wyswietl.planets.add(planet);
 		this.selectedPlanet=planet;
+		initFrame();
+	}
+
+	public EditObjectFrame(Planet nplanet) {
+		Wyswietl.planets.add(nplanet);
+		this.selectedPlanet=nplanet;
 		initFrame();
 	}
 }

@@ -3,6 +3,9 @@ package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation.SimulationFrame;
@@ -14,6 +17,12 @@ import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation.Simulatio
 public class MainMenu extends JFrame{
 	Color backgroundColor = new Color(9, 28, 124);
 	Color buttonColor = new Color(0, 102, 153);
+	//początek bzdur
+	public static List<Planet> planets = new ArrayList<Planet>();
+	static int d = 0; //chwilowa zmienna - odpala funkcje liczącze
+	double time = 1;
+	static JButton buttonStart;
+	//koniec bzdur
 	public MainMenu() {
 		this.setSize(1600,1000);
 		this.setLocationRelativeTo(null);
@@ -39,32 +48,32 @@ public class MainMenu extends JFrame{
 		title.setForeground(Color.white);
 		panelCenter.add(title);
 		
-		JButton buttonStart = new JButton("START");
+		buttonStart = new JButton(Wyswietl.bundle.getString("startText"));
 		buttonStart.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonStart.setBackground(buttonColor);
 		buttonStart.setForeground(Color.white);
 		panelCenter.add(buttonStart);
 		
-		JButton buttonAdd = new JButton("DODAJ OBIEKT");
+		JButton buttonAdd = new JButton(Wyswietl.bundle.getString("addObjText"));
 		buttonAdd.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonAdd.setBackground(buttonColor);
 		buttonAdd.setForeground(Color.white);
 		panelCenter.add(buttonAdd);
 		
-		JButton buttonEdit = new JButton("EDYTUJ OBIEKT");
+		JButton buttonEdit = new JButton(Wyswietl.bundle.getString("editText"));
 		buttonEdit.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonEdit.setBackground(buttonColor);
 		buttonEdit.setForeground(Color.white);
 		panelCenter.add(buttonEdit);
 
-		JButton buttonSettings = new JButton("USTAWIENIA");
+		JButton buttonSettings = new JButton(Wyswietl.bundle.getString("settingsText"));
 		buttonSettings.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonSettings.setBackground(buttonColor);
 		buttonSettings.setForeground(Color.white);
 		panelCenter.add(buttonSettings);
 		
 		JLabel objects = new JLabel();
-		objects.setText("Spis obiektów: ");
+		objects.setText(Wyswietl.bundle.getString("listObjText"));
 		objects.setFont(new Font("Arial", Font.PLAIN, 40));
 		objects.setForeground(Color.white);
 		panelLeft.add(objects);
@@ -112,6 +121,27 @@ public class MainMenu extends JFrame{
 		};
 		buttonStart.addActionListener(startListener);
 		
+		ActionListener calculationListener = new ActionListener() {//odpalanie funkcji z obliczeniami
+			@Override 
+			public void actionPerformed(ActionEvent arg0) {
+				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
+					protected Void doInBackground() throws Exception {
+						System.out.println("coś działa");
+						d = 1;
+						while(d == 1){
+							Functions.positionChange(planets, time);
+							Functions.accelerationChange(planets, time);
+							Functions.velocityChange(planets, time);
+							time++;//nie mamy jeszcze funkcji do czasu więc tak go zmieniam
+							System.out.println(planets.get(1).getPositionX());// tu wyrzucam żeby sprawdzić czy coś się dzieje
+						}
+						return null;
+						}
+				};worker.execute();
+			}
+		};
+		buttonStart.addActionListener(calculationListener);
+		
 		ActionListener settingsListener = new ActionListener() {
 
 			@Override
@@ -127,5 +157,23 @@ public class MainMenu extends JFrame{
 		this.revalidate();
 		this.setVisible(true);
 	}
-
+	
+	public static int getD() {
+		return d;
+	}
+	public static void setD(int d) {
+		MainMenu.d = d;
+	}
+	public static List<Planet> getPlanets() {
+		return planets;
+	}
+	public static void setPlanets(List<Planet> planets) {
+		MainMenu.planets = planets;
+	}
+	public static void addPlanet(Planet planet) {
+		planets.add(planet);
+	}
+	public static JButton getButtonStart() {
+		return buttonStart;
+	}	
 }
