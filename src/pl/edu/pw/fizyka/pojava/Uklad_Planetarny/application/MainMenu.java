@@ -87,8 +87,8 @@ public class MainMenu extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				@SuppressWarnings("unused")
-				EditObjectFrame edit = new EditObjectFrame(that);
-				that.setVisible(false);
+				EditObjectFrame edit = new EditObjectFrame();
+				//that.setVisible(false);
 			}
 		};
 		buttonEdit.addActionListener(editListener);
@@ -101,9 +101,9 @@ public class MainMenu extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				Planet nplanet = new Planet();
 				nplanet.setName("Nowa Planeta");
-				@SuppressWarnings("unused")
-				EditObjectFrame edit = new EditObjectFrame(that,nplanet);
-				that.setVisible(false);
+				EditObjectFrame edit = new EditObjectFrame(nplanet);
+				//EditObjectFrame edit = new EditObjectFrame(that,nplanet);
+				//that.setVisible(false);
 			}
 		};
 		buttonAdd.addActionListener(addListener);
