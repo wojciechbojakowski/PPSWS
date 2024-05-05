@@ -192,6 +192,7 @@ public class EditObjectFrame extends JFrame {
 			}
 		});
 
+
 		JButton saveButton = new JButton(Wyswietl.bundle.getString("saveText"));
 		saveButton.addActionListener(new ActionListener() {
 			@Override
