@@ -174,6 +174,9 @@ public class MainMenu extends JFrame{
 	public static void addPlanet(Planet planet) {
 		planets.add(planet);
 	}
+	public static void deletePlanet(int i) {
+		planets.remove(i);
+	}
 	public static JButton getButtonStart() {
 		return buttonStart;
 	}	
