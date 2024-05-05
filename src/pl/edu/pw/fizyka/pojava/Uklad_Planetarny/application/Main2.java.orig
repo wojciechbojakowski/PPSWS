@@ -7,10 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities
-
+import javax.swing.SwingUtilities;
+<<<<<<< HEAD
+=======
 import javax.swing.SwingWorker;
 
+>>>>>>> 6a88f3903669a4802a24d434a95a554f7a07f732
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;

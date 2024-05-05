@@ -152,7 +152,15 @@ public class MainMenu extends JFrame{
 		};
 		buttonSettings.addActionListener(settingsListener);
 	}
-
+<<<<<<< HEAD
+	
+	public void makeVisible() {
+		this.revalidate();
+		this.setVisible(true);
+	}
+	
+=======
+>>>>>>> 6a88f3903669a4802a24d434a95a554f7a07f732
 	public static int getD() {
 		return d;
 	}

@@ -122,10 +122,11 @@ public class SimulationFrame extends JFrame {
         	}
 		};
 		stopButton.addActionListener(stopNameListener);
-
-
-
-
+		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 6a88f3903669a4802a24d434a95a554f7a07f732
 		ActionListener addListener = new ActionListener() {//listener do edycji
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
