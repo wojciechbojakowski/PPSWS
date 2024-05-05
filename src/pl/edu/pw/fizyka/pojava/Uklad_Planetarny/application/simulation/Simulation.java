@@ -7,6 +7,7 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
@@ -18,6 +19,8 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.util.Duration;
+import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.MainMenu;
+import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Planet;
 import javafx.beans.property.*;
 
 @SuppressWarnings("serial")
@@ -72,40 +75,28 @@ public class Simulation extends JFXPanel{
         timeline.play();
     }
     
+    private Sphere renderPlanet(Planet planet) {
+    	Sphere sp = new Sphere(50);
+    	sp.setTranslateX(planet.getPositionX());
+    	sp.setTranslateY(planet.getPositionY());
+    	sp.setTranslateZ(planet.getPositionZ());
+    	System.out.println("nie");
+    	//TODO TEKSTURE + LIGHT
+    	
+		return sp;
+    }
+    
     private Scene createScene2() {
         SmartGroup  root  =  new SmartGroup();
         Scene  scene  =  new  Scene(root, Color.ALICEBLUE);
-        Sphere sphere = new Sphere(50);
-        sphere.setTranslateX(300);
-        sphere.setTranslateY(40);
-        sphere.setTranslateZ(300);
-        root.getChildren().add(sphere);
-        
-        initMouseControl(root,scene);
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            switch (event.getCode()) {
-              case W:
-                //root.translateZProperty().set(root.getTranslateZ() + 100);
-                break;
-              case S:
-                //root.translateZProperty().set(root.getTranslateZ() - 100);
-                break;
-              case Q:
-            	  root.rotateByX(10);
-            	  break;
-              case E:
-            	  root.rotateByX(-10);
-            	  break;
-              case NUMPAD6:
-            	  root.rotateByY(10);
-            	  break;
-              case NUMPAD4:
-            	  root.rotateByY(-10);
-            	  break;
-               default:
-              	 break;
-            }
-          });
+        //Sphere sphere = new Sphere(50);
+        //sphere.setTranslateX(300);
+        //sphere.setTranslateY(40);
+        //sphere.setTranslateZ(300);
+        for(Planet p : MainMenu.planets) {
+        	root.getChildren().add(renderPlanet(p));
+        }
+        //root.getChildren().add(sphere);
         return (scene);
     }
     
@@ -140,6 +131,12 @@ public class Simulation extends JFXPanel{
             	  break;
               case D:
             	  camera.translateXProperty().set(camera.getTranslateX() - 100);
+            	  break;
+              case Z:
+            	  camera.translateYProperty().set(camera.getTranslateY() +100);
+            	  break;
+              case X:
+            	  camera.translateYProperty().set(camera.getTranslateY() - 100);
             	  break;
               case NUMPAD6:
             	  cameraRotation(camera,10,2);

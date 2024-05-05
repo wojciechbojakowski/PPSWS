@@ -133,8 +133,8 @@ public class MainMenu extends JFrame{
 							Functions.accelerationChange(planets, time);
 							Functions.velocityChange(planets, time);
 							time++;//nie mamy jeszcze funkcji do czasu więc tak go zmieniam
-							System.out.println(planets.get(1).getPositionX());// tu wyrzucam żeby sprawdzić czy coś się dzieje
-							System.out.println(planets.size());
+							//System.out.println(planets.get(1).getPositionX());// tu wyrzucam żeby sprawdzić czy coś się dzieje
+							//System.out.println(planets.size());
 						}
 						return null;
 						}

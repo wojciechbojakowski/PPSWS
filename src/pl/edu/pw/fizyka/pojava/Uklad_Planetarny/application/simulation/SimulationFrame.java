@@ -63,7 +63,7 @@ public class SimulationFrame extends JFrame {
 	
 	private void initFrameSimulation() {
 		tak = this;
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
 		setTitle(Wyswietl.bundle.getString("appTitleText"));
 		this.addComponentListener(new ComponentAdapter() {

@@ -91,13 +91,13 @@ public class Planet {
 		name = "Dziobak";
 		mass = 1;
 		for(int i=0; i<3;i++) {
-			position[i]=100000*r.nextDouble();;
+			position[i]=100*r.nextDouble();;
 		}
 		for(int i=0; i<3;i++) {
-			acceleration[i]=100000*r.nextDouble();;
+			acceleration[i]=100*r.nextDouble();;
 		}
 		for(int i=0; i<3;i++) {
-			velocity[i]=100000*r.nextDouble();;
+			velocity[i]=100*r.nextDouble();;
 		}
 	}
 
