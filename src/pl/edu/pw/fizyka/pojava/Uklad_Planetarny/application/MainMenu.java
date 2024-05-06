@@ -141,7 +141,7 @@ public class MainMenu extends JFrame{
 				};worker.execute();
 			}
 		};
-		buttonStart.addActionListener(calculationListener);
+		//buttonStart.addActionListener(calculationListener);
 		
 		ActionListener settingsListener = new ActionListener() {
 

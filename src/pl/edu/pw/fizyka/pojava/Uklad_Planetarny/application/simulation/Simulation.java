@@ -75,31 +75,42 @@ public class Simulation extends JFXPanel{
         timeline.play();
     }
     
+    	/**
+    	 * Generuje sfery pokryte tekstura
+    	 * @param Planet planet
+    	 * @return Sphere sphere
+    	 * @author Krasnoludki
+    	 */
     private Sphere renderPlanet(Planet planet) {
     	Sphere sp = new Sphere(50);
     	sp.setTranslateX(planet.getPositionX());
     	sp.setTranslateY(planet.getPositionY());
     	sp.setTranslateZ(planet.getPositionZ());
-    	System.out.println("nie");
+    	//System.out.println(planet.getPositionX()+","+planet.getPositionY()+", "+planet.getPositionZ());
     	//TODO TEKSTURE + LIGHT
-    	
+    	PhongMaterial earthMaterial = new PhongMaterial();
+    	earthMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("../../resources/earth.jpg")));
+    	sp.setMaterial(earthMaterial);
 		return sp;
     }
-    
+    	/**
+    	 * Generuje przestezeń z Sferami i tłem
+    	 * @author Krasnoludki
+    	 */
     private Scene createScene2() {
         SmartGroup  root  =  new SmartGroup();
-        Scene  scene  =  new  Scene(root, Color.ALICEBLUE);
+        Scene  scene  =  new  Scene(root, Color.BLUEVIOLET);
         //Sphere sphere = new Sphere(50);
-        //sphere.setTranslateX(300);
-        //sphere.setTranslateY(40);
-        //sphere.setTranslateZ(300);
         for(Planet p : MainMenu.planets) {
         	root.getChildren().add(renderPlanet(p));
         }
         //root.getChildren().add(sphere);
         return (scene);
     }
-    
+    	/**
+    	 * Inicjuje generowanie przestrzeni i uruchamia możliwośc sterowana kamerą
+    	 * @author Krasnoludki
+    	 */
     public void initFX() {
         // This method is invoked on the JavaFX thread
         Scene scene = this.createScene2();
@@ -108,7 +119,12 @@ public class Simulation extends JFXPanel{
         this.setScene(scene);
         this.setFocusable(true);
     }
-    
+    	/**
+    	 * Dodaje sterowanie do kamery, by sterować kamera potrzebny jest focus na simulacje.
+    	 * @param camera
+    	 * @param scene
+    	 * @author Krasnoludki
+    	 */
     private void initCameraControl(Camera camera,Scene scene) {
     	//initMouseControl(root,scene);
         scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
