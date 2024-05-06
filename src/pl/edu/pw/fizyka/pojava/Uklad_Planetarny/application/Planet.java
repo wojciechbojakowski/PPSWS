@@ -2,6 +2,8 @@ package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 
 import java.util.Random;
 
+import javafx.scene.shape.Sphere;
+
 public class Planet {
 	String name;
 	double position[] = new double[3];
@@ -9,7 +11,27 @@ public class Planet {
 	double acceleration[] = new double[3];
 	double mass;
 	Random r;
+	private Sphere sphere;
 	
+	
+	public Sphere getSphere() {
+		return sphere;
+	}
+
+	public void setSphere(Sphere sphere) {
+		this.sphere = sphere;
+	}
+	
+	/*
+	 * Zmienia wartości gdzie znajduje się sfera w Animacji.
+	 * @author Krasnoludki
+	 */
+	public void updatePositionAnimation() {
+		sphere.setTranslateX(getPositionX());
+		sphere.setTranslateY(getPositionY());
+		sphere.setTranslateZ(getPositionZ());
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -96,10 +118,10 @@ public class Planet {
 		}
 		//System.out.println(getPositionX()+","+getPositionY()+", "+getPositionZ()+"]");
 		for(int i=0; i<3;i++) {
-			acceleration[i]=10*r.nextInt(10);
+			acceleration[i]=r.nextInt(2);
 		}
 		for(int i=0; i<3;i++) {
-			velocity[i]=r.nextInt(10);
+			velocity[i]=r.nextInt(4);
 		}
 	}
 

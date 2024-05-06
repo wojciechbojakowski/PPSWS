@@ -4,7 +4,7 @@ package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 import java.util.*;
 
 public class Functions {
-	static double  G=1;
+	static double  G=0.000001;
 	public static void positionChange(List<Planet> planets, double t){
 		for(int i=0; i<planets.size(); i++) {
 				planets.get(i).setPositionX(planets.get(i).getPositionX()+planets.get(i).getVelocityX()*t);

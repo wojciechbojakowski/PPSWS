@@ -1,5 +1,6 @@
 package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.embed.swing.JFXPanel;
@@ -87,10 +88,12 @@ public class Simulation extends JFXPanel{
     	sp.setTranslateY(planet.getPositionY());
     	sp.setTranslateZ(planet.getPositionZ());
     	//System.out.println(planet.getPositionX()+","+planet.getPositionY()+", "+planet.getPositionZ());
-    	//TODO TEKSTURE + LIGHT
+    	//TEKSTURE + TODO LIGHT
     	PhongMaterial earthMaterial = new PhongMaterial();
     	earthMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("../../resources/earth.jpg")));
+    	//earthMaterial.setBumpMap(new Image(getClass().getResourceAsStream("../../resources/ilum.jpg")));
     	sp.setMaterial(earthMaterial);
+    	planet.setSphere(sp); //Dodawanie do planety wskaznika na sfere w animacji.
 		return sp;
     }
     	/**
@@ -103,8 +106,19 @@ public class Simulation extends JFXPanel{
         //Sphere sphere = new Sphere(50);
         for(Planet p : MainMenu.planets) {
         	root.getChildren().add(renderPlanet(p));
+        	AnimationTimer timer = new AnimationTimer() {
+        	  	  @Override
+        	  	  public void handle(long now) {
+        	  		p.getSphere().setTranslateX(p.getPositionX());
+        	  		p.getSphere().setTranslateY(p.getPositionY());
+        	  		p.getSphere().setTranslateZ(p.getPositionZ());
+        	  		System.out.println(p.getPositionX()+","+p.getPositionY()+", "+p.getPositionZ());
+        	  	  }
+        	};
+        	timer.start();
         }
         //root.getChildren().add(sphere);
+        
         return (scene);
     }
     	/**
@@ -115,6 +129,8 @@ public class Simulation extends JFXPanel{
         // This method is invoked on the JavaFX thread
         Scene scene = this.createScene2();
         SmartCamera camera = new SmartCamera();
+        camera.setNearClip(1);
+        camera.setFarClip(2000);
         scene.setCamera(camera);
         initCameraControl(camera,scene);
         this.setScene(scene);

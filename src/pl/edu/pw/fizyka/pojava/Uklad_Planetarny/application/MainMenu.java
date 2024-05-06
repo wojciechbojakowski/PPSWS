@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -20,7 +21,7 @@ public class MainMenu extends JFrame{
 	//początek bzdur
 	public static List<Planet> planets = new ArrayList<Planet>();
 	static int d = 0; //chwilowa zmienna - odpala funkcje liczącze
-	double time = 1;
+	double time = 0.000001;
 	static JButton buttonStart;
 	//koniec bzdur
 	public MainMenu() {
@@ -128,11 +129,12 @@ public class MainMenu extends JFrame{
 					protected Void doInBackground() throws Exception {
 						System.out.println("coś działa");
 						d = 1;
+						TimeUnit.SECONDS.sleep(5);
 						while(d == 1){
 							Functions.positionChange(planets, time);
 							Functions.accelerationChange(planets, time);
 							Functions.velocityChange(planets, time);
-							time++;//nie mamy jeszcze funkcji do czasu więc tak go zmieniam
+							//time++;//nie mamy jeszcze funkcji do czasu więc tak go zmieniam
 							//System.out.println(planets.get(1).getPositionX());// tu wyrzucam żeby sprawdzić czy coś się dzieje
 							//System.out.println(planets.size());
 						}
@@ -141,7 +143,7 @@ public class MainMenu extends JFrame{
 				};worker.execute();
 			}
 		};
-		//buttonStart.addActionListener(calculationListener);
+		buttonStart.addActionListener(calculationListener);
 		
 		ActionListener settingsListener = new ActionListener() {
 
