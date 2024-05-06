@@ -114,8 +114,9 @@ public class Simulation extends JFXPanel{
     public void initFX() {
         // This method is invoked on the JavaFX thread
         Scene scene = this.createScene2();
-        scene.setCamera(new PerspectiveCamera());
-        initCameraControl(scene.getCamera(),scene);
+        SmartCamera camera = new SmartCamera();
+        scene.setCamera(camera);
+        initCameraControl(camera,scene);
         this.setScene(scene);
         this.setFocusable(true);
     }
@@ -125,7 +126,7 @@ public class Simulation extends JFXPanel{
     	 * @param scene
     	 * @author Krasnoludki
     	 */
-    private void initCameraControl(Camera camera,Scene scene) {
+    private void initCameraControl(SmartCamera camera,Scene scene) {
     	//initMouseControl(root,scene);
         scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
@@ -172,26 +173,21 @@ public class Simulation extends JFXPanel{
           });
     }
     
-    private void cameraRotation(Camera camera, int ang, int axis) {
-  	  	Transform t = new Rotate(camera.getRotate());
-  	  	Rotate r;
+    private void cameraRotation(SmartCamera camera, int ang, int axis) {
   	  	switch(axis) {
   	  		case 1:
-  	  			r = new Rotate(ang, Rotate.X_AXIS);
+  	  			camera.rotateByX(ang);
   	  			break;
   	  		case 2:
-  	  			r = new Rotate(ang, Rotate.Y_AXIS);
+  	  			camera.rotateByY(ang);
   	  			break;
   	  		case 3:
-  	  			r = new Rotate(ang, Rotate.Z_AXIS);
+  	  			camera.rotateByZ(ang);
   	  			break;
   	  		default:
-  	  			r = new Rotate(ang, Rotate.Z_AXIS);
+  	  			camera.rotateByX(ang);
   	  			break;
   	  	}
-        t = t.createConcatenation(r);
-        camera.getTransforms().clear();
-        camera.getTransforms().addAll(t);
     }
     
     private void initMouseControl(SmartGroup group, Scene scene){
@@ -241,4 +237,30 @@ public class Simulation extends JFXPanel{
           this.getTransforms().addAll(t);
         }
       }
+    
+    class SmartCamera extends PerspectiveCamera{
+    	Rotate r;
+        Transform t = new Rotate();
+     
+        void rotateByX(int ang) {
+          r = new Rotate(ang, Rotate.X_AXIS);
+          t = t.createConcatenation(r);
+          this.getTransforms().clear();
+          this.getTransforms().addAll(t);
+        }
+     
+        void rotateByY(int ang) {
+          r = new Rotate(ang, Rotate.Y_AXIS);
+          t = t.createConcatenation(r);
+          this.getTransforms().clear();
+          this.getTransforms().addAll(t);
+        }
+        
+        void rotateByZ(int ang) {
+        	r = new Rotate(ang,Rotate.Z_AXIS);
+        	t = t.createConcatenation(r);
+        	this.getTransforms().clear();
+        	this.getTransforms().addAll(t);
+        }
+    }
 }
