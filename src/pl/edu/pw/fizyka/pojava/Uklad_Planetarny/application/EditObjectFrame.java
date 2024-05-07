@@ -12,8 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.awt.Color;
 
@@ -21,8 +25,9 @@ import java.awt.Color;
 public class EditObjectFrame extends JFrame {
 	private Planet selectedPlanet;
 	private JPanel panelCenter;
-	
+	private MainMenu that;
 	JTextField massText;
+	
 	
 	private void close() {
 		this.setVisible(false);
@@ -34,18 +39,45 @@ public class EditObjectFrame extends JFrame {
 		selectedPlanet.setMass(10);
 	}
 	
+	private void updateList(DefaultListModel<String> listaElementy) {
+		listaElementy.addElement(MainMenu.planets.get(MainMenu.planets.size()-1).getName());
+		that.revalidate();
+		that.setVisible(true);
+	}
+	
 	private void initMenu() {
 		JPanel selectPanel = new JPanel();
+		
 		DefaultListModel<String> listaElementy = new DefaultListModel<String>();
 		JList<String> lista = new JList<String>(listaElementy);
 		for (int i=0; i < MainMenu.planets.size(); i++) {
 			listaElementy.addElement(MainMenu.planets.get(i).getName());
 		}
 		//lista.addListSelectionListener(listaListener);
-		lista.setVisibleRowCount(5);
-		//JScrollPane listScrollPane = new JScrollPane(lista);
+		lista.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+				
+				if (lsm.isSelectionEmpty()) {
+	                System.err.println("Selection went wrong");
+	            } else {
+	                // Find out which indexes are selected.
+	                int minIndex = lsm.getMinSelectionIndex();
+	                int maxIndex = lsm.getMaxSelectionIndex();
+	                for (int i = minIndex; i <= maxIndex; i++) {
+	                    if (lsm.isSelectedIndex(i)) {
+	                    	System.out.println(" " + i);
+	                    }
+	                }
+	            }
+			}
+		});
+		
+		//lista.setVisibleRowCount(5);
+		JScrollPane listScrollPane = new JScrollPane(lista);
 		//listScrollPane.setPreferredSize( new Dimension(300,100));
-		selectPanel.add(lista);
+		selectPanel.add(listScrollPane);
 		panelCenter.add(selectPanel);
 		
 		selectedPlanet = Wyswietl.planets.get(0);
@@ -126,8 +158,8 @@ public class EditObjectFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
 					protected Void doInBackground() throws Exception {
-						Planet planet = new Planet();
-						planet.setName(nameText.getName());
+						Planet planet = selectedPlanet;
+						planet.setName(nameText.getText());
 						planet.setMass(Double.parseDouble(massText.getText()));
 						planet.setPositionX(Double.parseDouble(xPositionText.getText()));
 						planet.setPositionY(Double.parseDouble(yPositionText.getText()));
@@ -140,10 +172,15 @@ public class EditObjectFrame extends JFrame {
 						planet.setAccelerationZ(Double.parseDouble(zAccelerationText.getText()));
 						MainMenu.addPlanet(planet);
 						System.out.println("zapisuje się!");
-						
+						//System.out.println(planet.getName());
 						return null;
 						}
+					protected void done() {
+						that.showPlanets(that.panelLeft);
+						updateList(listaElementy);
+					}
 				};worker.execute();
+				
 			}
 		};
 		saveButton.addActionListener(saveListener);
@@ -203,14 +240,19 @@ public class EditObjectFrame extends JFrame {
         this.setVisible(true);
 	}
 
-	public EditObjectFrame() throws HeadlessException {
-		
+	public EditObjectFrame(MainMenu t) throws HeadlessException {
+		that=t;
 		initFrame();
 	}
 	
-	public EditObjectFrame(Planet planet) throws HeadlessException {
+	public EditObjectFrame(MainMenu t,Planet planet) throws HeadlessException {
+		that=t;
 		Wyswietl.planets.add(planet);
 		this.selectedPlanet=planet;
+		initFrame();
+	}
+
+	public EditObjectFrame(Planet nplanet) {
 		initFrame();
 	}
 }

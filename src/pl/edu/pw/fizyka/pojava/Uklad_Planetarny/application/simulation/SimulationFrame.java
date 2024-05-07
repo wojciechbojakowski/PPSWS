@@ -36,6 +36,7 @@ public class SimulationFrame extends JFrame {
 	private JPanel down;
 	private Component box;
 	private SimulationFrame tak;
+	private MainMenu that;
 	
 	
 	private void createUpPanel() {

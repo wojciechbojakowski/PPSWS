@@ -112,7 +112,7 @@ public class Simulation extends JFXPanel{
         	  		p.getSphere().setTranslateX(p.getPositionX());
         	  		p.getSphere().setTranslateY(p.getPositionY());
         	  		p.getSphere().setTranslateZ(p.getPositionZ());
-        	  		System.out.println(p.getPositionX()+","+p.getPositionY()+", "+p.getPositionZ());
+        	  		//System.out.println(p.getPositionX()+","+p.getPositionY()+", "+p.getPositionZ());
         	  	  }
         	};
         	timer.start();
