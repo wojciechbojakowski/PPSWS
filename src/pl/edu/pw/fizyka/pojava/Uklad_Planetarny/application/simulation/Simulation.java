@@ -161,6 +161,7 @@ public class Simulation extends JFXPanel{
         camera.setFarClip(2000);
         scene.setCamera(camera);
         initCameraControl(camera,scene);
+        initMouseControl(scene);
         this.setScene(scene);
         this.setFocusable(true);
     }
@@ -241,10 +242,12 @@ public class Simulation extends JFXPanel{
     	scene.setFill(imgPattern);
     }
     
-    private void initMouseControl(SmartGroup group, Scene scene){
+    private void initMouseControl(Scene scene){
       	Rotate xRotate;
       	Rotate yRotate;
-      	group.getTransforms().addAll(
+      	
+      	Camera camera = scene.getCamera();
+      	camera.getTransforms().addAll(
       			xRotate = new Rotate(0,Rotate.X_AXIS),
       			yRotate = new Rotate(0,Rotate.Y_AXIS)
       			);
@@ -265,7 +268,7 @@ public class Simulation extends JFXPanel{
       	
       	scene.addEventHandler(ScrollEvent.SCROLL, event->{
       		double movement = event.getDeltaY();
-      		group.translateZProperty().set(group.getTranslateZ()+movement);
+      		camera.translateZProperty().set(camera.getTranslateZ()+movement);
       	});
       }
     
