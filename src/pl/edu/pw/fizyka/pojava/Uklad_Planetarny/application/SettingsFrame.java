@@ -27,6 +27,8 @@ public class SettingsFrame extends JFrame {
         this.add(panelMain);
         panelMain.setLayout(new BoxLayout(panelMain,BoxLayout.Y_AXIS));
         
+        SettingsFrame that = this;
+        
         String [] language = {"Polski","English","Deutsch - still in developmend"};
         JComboBox<String> languageSelect = new JComboBox<String>(language);
         languageSelect.setMaximumSize(new Dimension(300,30));
@@ -40,7 +42,9 @@ public class SettingsFrame extends JFrame {
 				}else{
 					System.out.println("Ajaj");
 				}
-				
+				text.setText(Wyswietl.bundle.getString("developmentText"));
+				text2.setText(Wyswietl.bundle.getString("authorText"));
+				that.repaint();
 			}
         	
         });
@@ -49,12 +53,12 @@ public class SettingsFrame extends JFrame {
         panelMain.add(languageSelect);
         
         JButton saveSettingsButton = new JButton("Save Settings");
-        SettingsFrame that = this;
+        
         saveSettingsButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				text = new JLabel(Wyswietl.bundle.getString("developmentText"));
-				text2 = new JLabel(Wyswietl.bundle.getString("authorText"));
+				text.setText(Wyswietl.bundle.getString("developmentText"));
+				text2.setText(Wyswietl.bundle.getString("authorText"));
 				that.repaint();
 			}
         });

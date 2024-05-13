@@ -29,6 +29,11 @@ public class EditObjectFrame extends JFrame {
 	JTextField massText;
 	
 	
+	
+		
+	
+	
+	
 	private void close() {
 		this.setVisible(false);
 		this.dispose();
@@ -54,33 +59,13 @@ public class EditObjectFrame extends JFrame {
 			listaElementy.addElement(MainMenu.planets.get(i).getName());
 		}
 		//lista.addListSelectionListener(listaListener);
-		lista.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-				
-				if (lsm.isSelectionEmpty()) {
-	                System.err.println("Selection went wrong");
-	            } else {
-	                // Find out which indexes are selected.
-	                int minIndex = lsm.getMinSelectionIndex();
-	                int maxIndex = lsm.getMaxSelectionIndex();
-	                for (int i = minIndex; i <= maxIndex; i++) {
-	                    if (lsm.isSelectedIndex(i)) {
-	                    	System.out.println(" " + i);
-	                    }
-	                }
-	            }
-			}
-		});
+		lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		//lista.setVisibleRowCount(5);
 		JScrollPane listScrollPane = new JScrollPane(lista);
 		//listScrollPane.setPreferredSize( new Dimension(300,100));
 		selectPanel.add(listScrollPane);
 		panelCenter.add(selectPanel);
-		
-		selectedPlanet = Wyswietl.planets.get(0);
 		
 		
 		JPanel labelPanel = new JPanel();
@@ -170,7 +155,7 @@ public class EditObjectFrame extends JFrame {
 						planet.setAccelerationX(Double.parseDouble(xAccelerationText.getText()));
 						planet.setAccelerationY(Double.parseDouble(yAccelerationText.getText()));
 						planet.setAccelerationZ(Double.parseDouble(zAccelerationText.getText()));
-						MainMenu.addPlanet(planet);
+						//MainMenu.addPlanet(planet);
 						System.out.println("zapisuje się!");
 						//System.out.println(planet.getName());
 						return null;
@@ -212,6 +197,30 @@ public class EditObjectFrame extends JFrame {
 		endPanel.add(quitButton);
 		panelCenter.add(endPanel);
 		
+		lista.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				JList answer = (JList)e.getSource();
+				if(answer.getValueIsAdjusting()) {
+					int k = answer.getSelectedIndex();
+					System.out.println(k);
+					if(k!=-1) {
+						selectedPlanet = MainMenu.planets.get(k);
+						nameText.setText(selectedPlanet.getName());
+						massText.setText(Double.toString(selectedPlanet.getMass()));
+						xPositionText.setText(Double.toString(selectedPlanet.getPositionX()));
+						yPositionText.setText(Double.toString(selectedPlanet.getPositionY()));
+						zPositionText.setText(Double.toString(selectedPlanet.getPositionZ()));
+						xVelocityText.setText(Double.toString(selectedPlanet.getVelocityX()));
+						yVelocityText.setText(Double.toString(selectedPlanet.getVelocityY()));
+						zVelocityText.setText(Double.toString(selectedPlanet.getVelocityZ()));
+						xAccelerationText.setText(Double.toString(selectedPlanet.getAccelerationX()));
+						yAccelerationText.setText(Double.toString(selectedPlanet.getAccelerationY()));
+						zAccelerationText.setText(Double.toString(selectedPlanet.getAccelerationZ()));
+					}
+				}
+			}
+		});
 	}
 	
 	private void initFrame() {
@@ -242,12 +251,13 @@ public class EditObjectFrame extends JFrame {
 
 	public EditObjectFrame(MainMenu t) throws HeadlessException {
 		that=t;
+		selectedPlanet = MainMenu.planets.get(0);
 		initFrame();
 	}
 	
 	public EditObjectFrame(MainMenu t,Planet planet) throws HeadlessException {
 		that=t;
-		Wyswietl.planets.add(planet);
+		MainMenu.planets.add(planet);
 		this.selectedPlanet=planet;
 		initFrame();
 	}

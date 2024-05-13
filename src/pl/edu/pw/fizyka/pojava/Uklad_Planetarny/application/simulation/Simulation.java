@@ -4,14 +4,18 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Sphere;
@@ -19,6 +23,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
+import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.MainMenu;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Planet;
@@ -96,13 +101,35 @@ public class Simulation extends JFXPanel{
     	planet.setSphere(sp); //Dodawanie do planety wskaznika na sfere w animacji.
 		return sp;
     }
+    
+    //Tworzenie slonca
+    private final PointLight pointLight = new PointLight();
+    private Node[] prepareLightSource() {
+  	  AmbientLight ambientLight = new AmbientLight();
+  	  ambientLight.setColor(Color.LIGHTSTEELBLUE);
+  	  //return ambientLight;
+  	  
+  	  pointLight.setColor(Color.GHOSTWHITE);
+  	  pointLight.getTransforms().add(new Translate(0,-50,100));
+  	  pointLight.setRotationAxis(Rotate.X_AXIS);
+  	  //invisible point of light so add sphere.
+  	  
+  	  Sphere sphere = new Sphere(50);
+  	  sphere.getTransforms().setAll(pointLight.getTransforms());
+  	  sphere.rotateProperty().bind(pointLight.rotateProperty());
+  	  sphere.rotationAxisProperty().bind(pointLight.rotationAxisProperty());
+  	  return new Node[] {pointLight,sphere,ambientLight};
+    }
+    
     	/**
     	 * Generuje przestezeń z Sferami i tłem
     	 * @author Krasnoludki
     	 */
     private Scene createScene2() {
         SmartGroup  root  =  new SmartGroup();
-        Scene  scene  =  new  Scene(root, Color.BLUEVIOLET);
+        Scene  scene  =  new  Scene(root, Color.DARKBLUE);
+        
+        //root.getChildren().addAll(prepareLightSource());
         //Sphere sphere = new Sphere(50);
         for(Planet p : MainMenu.planets) {
         	root.getChildren().add(renderPlanet(p));
@@ -129,6 +156,7 @@ public class Simulation extends JFXPanel{
         // This method is invoked on the JavaFX thread
         Scene scene = this.createScene2();
         SmartCamera camera = new SmartCamera();
+        //this.initBackground(scene);
         camera.setNearClip(1);
         camera.setFarClip(2000);
         scene.setCamera(camera);
@@ -204,6 +232,13 @@ public class Simulation extends JFXPanel{
   	  			camera.rotateByX(ang);
   	  			break;
   	  	}
+    }
+    
+    private void initBackground(Scene scene) {
+    	scene.setFill(Color.BLANCHEDALMOND);
+    	Image image = new Image(getClass().getResourceAsStream("../../resources/background.jpeg"));
+    	ImagePattern imgPattern = new ImagePattern(image);
+    	scene.setFill(imgPattern);
     }
     
     private void initMouseControl(SmartGroup group, Scene scene){
