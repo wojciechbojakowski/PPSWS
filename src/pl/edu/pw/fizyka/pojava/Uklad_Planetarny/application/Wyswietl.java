@@ -46,7 +46,7 @@ public class Wyswietl {
 			MainMenu main = new MainMenu();
 			main.setVisible(true);
 			}
-			}); //zabawa wątkami bo trzeba tak ostatecznie zrobić
+			}); 
 		System.out.println("Hello World");
 
 		/*while(time != 100){

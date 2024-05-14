@@ -52,7 +52,7 @@ public class SettingsFrame extends JFrame {
         languageSelect.setEditable(true);
         panelMain.add(languageSelect);
         
-        JButton saveSettingsButton = new JButton("Save Settings");
+        JButton saveSettingsButton = new JButton(Wyswietl.bundle.getString("saveText"));
         
         saveSettingsButton.addActionListener(new ActionListener() {
 			@Override
