@@ -10,6 +10,7 @@ public class Planet {
 	double velocity[] = new double[3];
 	double acceleration[] = new double[3];
 	double mass;
+	double radius;
 	Random r;
 	private Sphere sphere;
 	
@@ -40,6 +41,14 @@ public class Planet {
 		this.name=name;
 	}
 	
+	public double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(double radius) {
+		this.radius = radius;
+	}
+
 	public double getPositionX() {
 		return position[0];
 	}
@@ -112,6 +121,7 @@ public class Planet {
 		r = new Random();
 		name = "Dziobak";
 		mass = 1;
+		radius = 1;
 		for(int i=0; i<3;i++) {
 			//tutaj jest int bo inaczej się psuje renderowanie planet.
 			position[i]=r.nextInt(1000);

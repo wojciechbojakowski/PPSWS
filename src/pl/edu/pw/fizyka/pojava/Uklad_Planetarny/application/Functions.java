@@ -10,6 +10,25 @@ public class Functions {
 				planets.get(i).setPositionX(planets.get(i).getPositionX()+planets.get(i).getVelocityX()*t);
 				planets.get(i).setPositionY(planets.get(i).getPositionY()+planets.get(i).getVelocityY()*t);
 				planets.get(i).setPositionZ(planets.get(i).getPositionZ()+planets.get(i).getVelocityZ()*t);
+				for(int j=0; j<planets.size(); j++) {
+					if(j==i)continue;
+					if(planets.get(i).getRadius()+planets.get(j).getRadius()>=Math.abs(planets.get(i).getPositionX()-planets.get(j).getPositionX()) && planets.get(i).getRadius()+planets.get(j).getRadius()>=Math.abs(planets.get(i).getPositionY()-planets.get(j).getPositionY()) && planets.get(i).getRadius()+planets.get(j).getRadius()>=Math.abs(planets.get(i).getPositionZ()-planets.get(j).getPositionZ())) {
+						System.out.println("Zderzenie planet: "+planets.get(i).getName()+" "+planets.get(j).getName());
+						if(i<j) {
+							System.out.println("LICZBA PRZED: "+planets.size());
+							planets.remove(j);
+							System.out.println("LICZBA W POłOWIE: "+planets.size());
+							planets.remove(i);
+							System.out.println("LICZBA PO: "+planets.size());
+						}else {
+							System.out.println("LICZBA PRZED: "+planets.size());
+							planets.remove(i);
+							System.out.println("LICZBA W POłOWIE: "+planets.size());
+							planets.remove(j);
+							System.out.println("LICZBA PO: "+planets.size());
+						}
+					}
+				}							
 		}
 	}
 	public static void velocityChange(List<Planet> planets, double t) {

@@ -26,7 +26,7 @@ public class EditObjectFrame extends JFrame {
 	private Planet selectedPlanet;
 	private JPanel panelCenter;
 	private MainMenu that;
-	JTextField massText;
+	JTextField massText, radiusText;
 	
 	
 	
@@ -81,6 +81,13 @@ public class EditObjectFrame extends JFrame {
 		massText = new JTextField(Double.toString(selectedPlanet.getMass()));
 		massPanel.add(massText);
 		panelCenter.add(massPanel);
+		
+		JPanel radiusPanel = new JPanel();
+		JLabel radiusLabel = new JLabel(Wyswietl.bundle.getString("radiusText"));
+		radiusPanel.add(radiusLabel);
+		radiusText = new JTextField(Double.toString(selectedPlanet.getRadius()));
+		radiusPanel.add(radiusText);
+		panelCenter.add(radiusPanel);
 		
 		JPanel positionPanel = new JPanel();
 		JLabel pXLabel = new JLabel(Wyswietl.bundle.getString("pXText"));
@@ -146,6 +153,7 @@ public class EditObjectFrame extends JFrame {
 						Planet planet = selectedPlanet;
 						planet.setName(nameText.getText());
 						planet.setMass(Double.parseDouble(massText.getText()));
+						planet.setRadius(Double.parseDouble(radiusText.getText()));
 						planet.setPositionX(Double.parseDouble(xPositionText.getText()));
 						planet.setPositionY(Double.parseDouble(yPositionText.getText()));
 						planet.setPositionZ(Double.parseDouble(zPositionText.getText()));
@@ -208,6 +216,7 @@ public class EditObjectFrame extends JFrame {
 						selectedPlanet = MainMenu.planets.get(k);
 						nameText.setText(selectedPlanet.getName());
 						massText.setText(Double.toString(selectedPlanet.getMass()));
+						radiusText.setText(Double.toString(selectedPlanet.getRadius()));
 						xPositionText.setText(Double.toString(selectedPlanet.getPositionX()));
 						yPositionText.setText(Double.toString(selectedPlanet.getPositionY()));
 						zPositionText.setText(Double.toString(selectedPlanet.getPositionZ()));
