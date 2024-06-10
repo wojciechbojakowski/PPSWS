@@ -1,9 +1,16 @@
 package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.embed.swing.JFXPanel;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -97,7 +104,8 @@ public class Simulation extends JFXPanel{
     	PhongMaterial earthMaterial = new PhongMaterial();
     	Image texture= new Image(getClass().getResourceAsStream("../../resources/earth.jpg"));
     	if(planet.getTexturePath()!=null) {
-    		
+    		Image test = readImage(new File(planet.getTexturePath()));
+    		if(test!=null)texture=test;
     	}
     	earthMaterial.setDiffuseMap(texture);
     	//earthMaterial.setBumpMap(new Image(getClass().getResourceAsStream("../../resources/ilum.jpg")));
@@ -244,6 +252,17 @@ public class Simulation extends JFXPanel{
     	Image image = new Image(getClass().getResourceAsStream("../../resources/background.jpeg"));
     	ImagePattern imgPattern = new ImagePattern(image);
     	scene.setFill(imgPattern);
+    }
+    
+    public static Image readImage(File file) {
+        try {
+            BufferedImage bimg = ImageIO.read(file);
+            return SwingFXUtils.toFXImage(bimg, null);
+        }
+        catch( IOException e ) {
+            // do something, probably throw some kind of RuntimeException
+        }
+		return null;
     }
     
     private void initMouseControl(Scene scene){
