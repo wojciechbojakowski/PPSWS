@@ -15,11 +15,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import javax.swing.Timer;
 
 import javafx.application.Platform;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.EditObjectFrame;
+import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Functions;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.MainMenu;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Planet;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Wyswietl;
@@ -30,7 +33,7 @@ public class SimulationFrame extends JFrame {
 	private JButton stopButton;
 	private JButton addButton;
 	private JButton menuButton;
-	private JLabel timeLabel;
+	private JTextField timeLabel;
 	String timeText;
 	private JPanel up;
 	private JPanel down;
@@ -38,14 +41,22 @@ public class SimulationFrame extends JFrame {
 	private SimulationFrame tak;
 	private MainMenu that;
 	
+	public void updateTextTime() {
+		timeText = Functions.getTime();
+		timeLabel.setText(timeText);
+		timeLabel.repaint();
+		up.revalidate();
+		up.repaint();
+	}
 	
 	private void createUpPanel() {
 		up.setLayout(new BoxLayout(up,BoxLayout.X_AXIS));
 		box = Box.createHorizontalStrut(tak.getWidth()-200);
 		menuButton = new JButton(Wyswietl.bundle.getString("menuText"));
-        timeText = LocalTime.now().toString();
-        timeLabel = new JLabel(timeText);
-        timeLabel.setToolTipText(Wyswietl.bundle.getString("timeText"));
+		timeText = Functions.getTime();
+        timeLabel = new JTextField(timeText);
+        timeLabel.setEnabled(false);
+        //timeLabel.setToolTipText(Wyswietl.bundle.getString("timeText"));
         up.add(menuButton);
         
         box = Box.createHorizontalStrut(this.getWidth()-200);
@@ -144,7 +155,18 @@ public class SimulationFrame extends JFrame {
         up = new JPanel();
         down = new JPanel();
         
+        Timer timer = new Timer(10, null);
+        timer.setRepeats(true);
+        timer.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateTextTime();
+			}
+        	
+        });
         
+        timer.start();
         
         
         this.add(jfxPanel,BorderLayout.CENTER);

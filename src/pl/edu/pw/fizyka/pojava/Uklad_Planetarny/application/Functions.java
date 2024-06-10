@@ -1,10 +1,75 @@
 
 package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Functions {
-	static double  G=0.000001;
+	static double  G=0.001;
+	static String fileName = "output.txt";
+	static BufferedWriter writer = null;
+	static int ogranicznik=0;
+	public static int timeline=0;
+	
+	public static void addTime(double d) {
+		timeline+=Math.ceil(d);
+	}
+	
+	public static String getTime() {
+		return String.valueOf(timeline);
+	}
+	
+	public static void createCon() {
+		try {
+			writer = new BufferedWriter(new FileWriter(fileName));
+			saveData(prepareFirstLines());
+		} catch (IOException e) {
+			writer = null;
+			System.err.println("Exeption with open file to write data out");
+		}
+	}
+	
+	public static void saveData(String Data) {
+		if(writer!=null) {
+			if(ogranicznik!=100000) {
+				ogranicznik++;
+				try {
+				writer.write(Data);
+				writer.newLine();
+			} catch (IOException e) {
+				System.err.println("Exeption with writing to the file");
+				e.printStackTrace();
+			}
+			}
+			else {
+				System.out.println("Saved 100000 lines");
+				MainMenu.setD(0);
+			}
+		}
+	}
+	
+	public static String prepareFirstLines() {
+		String ret = "";
+		for(Planet i : MainMenu.planets) {
+			ret = ret+i.getName()+",\t        ,\t       ,\t        ,\t         ,\t        ,\t";
+		}
+		ret = ret+"\n";
+		for(Planet i : MainMenu.planets) {
+			ret=ret+"PositionX: , PositionY: , PositionZ: , VelocityX: , VelocityY: , VelocityZ: , ";
+		}
+		return ret;
+	}
+	
+	public static String prepareDate() {
+		String ret ="";
+		for(Planet i : MainMenu.planets) {
+			ret=ret+i.getPositionX()+" , "+i.getPositionY()+" , "+i.getPositionZ()+" , "+i.getVelocityX()+" , "+i.getVelocityY()+" , "+i.getVelocityZ()+" , ";
+		}
+		return ret;
+	}
+	
 	public static void positionChange(List<Planet> planets, double t){
 		for(int i=0; i<planets.size(); i++) {
 				planets.get(i).setPositionX(planets.get(i).getPositionX()+planets.get(i).getVelocityX()*t);
@@ -41,31 +106,10 @@ public class Functions {
 	public static void accelerationChange(List<Planet> planets, double t) {
 		for(int i=0; i<planets.size(); i++) {
 			for(int j=0; j<planets.size(); j++) {
-				if(j==i)continue;
-				if(planets.get(i).getPositionX()-planets.get(j).getPositionX()>0) {
-					planets.get(i).setAccelerationX(planets.get(i).getAccelerationX()+planets.get(j).getMass()*G/Math.pow(Math.abs(planets.get(i).getPositionX()-planets.get(j).getPositionX()),2));
-				}
-				else {
-					planets.get(i).setAccelerationX(planets.get(i).getAccelerationX()-planets.get(j).getMass()*G/Math.pow(Math.abs(planets.get(i).getPositionX()-planets.get(j).getPositionX()),2));
-				}
-			}
-			for(int j=0; j<planets.size(); j++) {
-				if(j==i)continue;
-				if(planets.get(i).getPositionY()-planets.get(j).getPositionY()>0) {
-					planets.get(i).setAccelerationY(planets.get(i).getAccelerationY()+planets.get(j).getMass()*G/Math.pow(Math.abs(planets.get(i).getPositionY()-planets.get(j).getPositionY()),2));
-				}
-				else {
-					planets.get(i).setAccelerationY(planets.get(i).getAccelerationY()-planets.get(j).getMass()*G/Math.pow(Math.abs(planets.get(i).getPositionY()-planets.get(j).getPositionY()),2));
-				}
-			}
-			for(int j=0; j<planets.size(); j++) {
-				if(j==i)continue;
-				if(planets.get(i).getPositionZ()-planets.get(j).getPositionZ()>0) {
-					planets.get(i).setAccelerationZ(planets.get(i).getAccelerationZ()+planets.get(j).getMass()*G/Math.pow(Math.abs(planets.get(i).getPositionZ()-planets.get(j).getPositionZ()),2));
-				}
-				else {
-					planets.get(i).setAccelerationZ(planets.get(i).getAccelerationZ()-planets.get(j).getMass()*G/Math.pow(Math.abs(planets.get(i).getPositionZ()-planets.get(j).getPositionZ()),2));
-				}
+				if(i==j)continue;
+				planets.get(i).setAccelerationX(planets.get(j).getMass()*G/Math.pow(Math.abs(planets.get(i).getPositionX()-planets.get(j).getPositionX()),2));
+				planets.get(i).setAccelerationY(planets.get(j).getMass()*G/Math.pow(Math.abs(planets.get(i).getPositionY()-planets.get(j).getPositionY()),2));
+				planets.get(i).setAccelerationZ(planets.get(j).getMass()*G/Math.pow(Math.abs(planets.get(i).getPositionZ()-planets.get(j).getPositionZ()),2));
 			}
 		}
 	}

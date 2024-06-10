@@ -4,10 +4,13 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Locale;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -18,6 +21,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Color;
 
@@ -27,7 +31,7 @@ public class EditObjectFrame extends JFrame {
 	private JPanel panelCenter;
 	private MainMenu that;
 	JTextField massText, radiusText;
-	
+
 	
 	
 		
@@ -45,7 +49,7 @@ public class EditObjectFrame extends JFrame {
 	}
 	
 	private void updateList(DefaultListModel<String> listaElementy) {
-		listaElementy.addElement(MainMenu.planets.get(MainMenu.planets.size()-1).getName());
+		//listaElementy.addElement(MainMenu.planets.get(MainMenu.planets.size()-1).getName());
 		that.revalidate();
 		that.setVisible(true);
 	}
@@ -200,6 +204,15 @@ public class EditObjectFrame extends JFrame {
 		};
 		deleteButton.addActionListener(deleteListener);
 		
+		JButton changeTextureButton=new JButton(Wyswietl.bundle.getString("changeTexture"));
+		changeTextureButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changeTexture(selectedPlanet);
+			}
+		});
+		endPanel.add(changeTextureButton);
+		
 		endPanel.add(saveButton);
 		endPanel.add(deleteButton);
 		endPanel.add(quitButton);
@@ -258,6 +271,24 @@ public class EditObjectFrame extends JFrame {
         this.setVisible(true);
 	}
 
+	private void changeTexture(Planet p) {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setDialogTitle("Save File");
+		chooser.setFileFilter(new FileNameExtensionFilter("JPG", "jpg"));
+		chooser.setFileFilter(new FileNameExtensionFilter("PNG", "png"));
+		chooser.setCurrentDirectory(new File("~"));
+		chooser.setAcceptAllFileFilterUsed(false);
+		
+		int userSelection = chooser.showSaveDialog(this);
+		 
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+		    File fileToSave = chooser.getSelectedFile();
+		    
+		    System.out.println("Texture of"+this.getName()+" change for: " + fileToSave.getAbsolutePath());
+		    
+		    p.setTexturePath("/"+fileToSave.getAbsolutePath());
+		}
+	}
 	public EditObjectFrame(MainMenu t) throws HeadlessException {
 		that=t;
 		selectedPlanet = MainMenu.planets.get(0);
@@ -272,6 +303,8 @@ public class EditObjectFrame extends JFrame {
 	}
 
 	public EditObjectFrame(Planet nplanet) {
+		MainMenu.planets.add(nplanet);
+		this.selectedPlanet=nplanet;
 		initFrame();
 	}
 }

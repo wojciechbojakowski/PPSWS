@@ -95,7 +95,11 @@ public class Simulation extends JFXPanel{
     	//System.out.println(planet.getPositionX()+","+planet.getPositionY()+", "+planet.getPositionZ());
     	//TEKSTURE + TODO LIGHT
     	PhongMaterial earthMaterial = new PhongMaterial();
-    	earthMaterial.setDiffuseMap(new Image(getClass().getResourceAsStream("../../resources/earth.jpg")));
+    	Image texture= new Image(getClass().getResourceAsStream("../../resources/earth.jpg"));
+    	if(planet.getTexturePath()!=null) {
+    		
+    	}
+    	earthMaterial.setDiffuseMap(texture);
     	//earthMaterial.setBumpMap(new Image(getClass().getResourceAsStream("../../resources/ilum.jpg")));
     	sp.setMaterial(earthMaterial);
     	planet.setSphere(sp); //Dodawanie do planety wskaznika na sfere w animacji.

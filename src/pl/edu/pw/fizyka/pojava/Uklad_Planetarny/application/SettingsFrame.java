@@ -6,12 +6,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
 public class SettingsFrame extends JFrame {
@@ -64,15 +68,47 @@ public class SettingsFrame extends JFrame {
         });
         panelMain.add(saveSettingsButton);
         
+        JButton saveFileButton = new JButton(Wyswietl.bundle.getString("saveToFile"));
+        saveFileButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				save();
+			}
+        });
+        panelMain.add(saveFileButton);
+        
+        
+        
         this.text = new JLabel(Wyswietl.bundle.getString("developmentText"));
         panelMain.add(this.text);
         this.text2 = new JLabel(Wyswietl.bundle.getString("authorText"));
         panelMain.add(this.text2);
         
 	}
+        
+        
 
 	public SettingsFrame() throws HeadlessException {
 		initFrame();
 		this.setVisible(true);
+	}
+	
+	public void save() {
+			JFileChooser chooser = new JFileChooser();
+			chooser.setDialogTitle("Save File");
+			chooser.setFileFilter(new FileNameExtensionFilter("TXT", "txt"));
+			chooser.setFileFilter(new FileNameExtensionFilter("CSV", "csv"));
+			chooser.setSelectedFile(new File("~\\untitled.txt"));
+			chooser.setAcceptAllFileFilterUsed(false);
+			
+			int userSelection = chooser.showSaveDialog(this);
+			 
+			if (userSelection == JFileChooser.APPROVE_OPTION) {
+			    File fileToSave = chooser.getSelectedFile();
+			    
+			    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+			    
+			    Functions.fileName=fileToSave.getAbsolutePath();
+			}
 	}
 }

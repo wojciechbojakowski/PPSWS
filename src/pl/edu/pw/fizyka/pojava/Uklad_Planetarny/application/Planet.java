@@ -13,7 +13,15 @@ public class Planet {
 	double radius;
 	Random r;
 	private Sphere sphere;
+	String texturePath;
 	
+	public String getTexturePath() {
+		return this.texturePath;
+	}
+	
+	public void setTexturePath(String tak) {
+		this.texturePath=tak;
+	}
 	
 	public Sphere getSphere() {
 		return sphere;
@@ -50,23 +58,23 @@ public class Planet {
 	}
 
 	public double getPositionX() {
-		return position[0];
+		return (int)position[0];
 	}
 	public double getPositionY() {
-		return position[1];
+		return (int)position[1];
 	}
 	public double getPositionZ() {
-		return position[2];
+		return (int)position[2];
 	}
 
 	public void setPositionX(double position) {
-		this.position[0] = position;
+		this.position[0] = (int)position;
 	}
 	public void setPositionY(double position) {
-		this.position[1] = position;
+		this.position[1] = (int)position;
 	}
 	public void setPositionZ(double position) {
-		this.position[2] = position;
+		this.position[2] = (int)position;
 	}
 
 	public double getVelocityX() {
@@ -118,6 +126,7 @@ public class Planet {
 	}
 
 	public Planet() {
+		texturePath=null;//"../../resources/earth.jpg";
 		r = new Random();
 		name = "Dziobak";
 		mass = 1;

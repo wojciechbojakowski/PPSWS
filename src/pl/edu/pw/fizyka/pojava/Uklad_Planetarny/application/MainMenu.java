@@ -23,7 +23,7 @@ public class MainMenu extends JFrame{
 	//początek bzdur
 	public static List<Planet> planets = new ArrayList<Planet>();
 	static int d = 0; //chwilowa zmienna - odpala funkcje liczącze
-	double time = 0.000001;
+	double time = 5;
 	static JButton buttonStart;
 	//koniec bzdur
 	public MainMenu() {
@@ -132,12 +132,17 @@ public class MainMenu extends JFrame{
 				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
 					protected Void doInBackground() throws Exception {
 						System.out.println("coś działa");
+						Functions.createCon();
+						
 						d = 1;
 						TimeUnit.SECONDS.sleep(5);
 						while(d == 1){
 							Functions.positionChange(planets, time);
 							Functions.accelerationChange(planets, time);
 							Functions.velocityChange(planets, time);
+							Functions.addTime(time);
+							Functions.saveData(Functions.prepareDate());
+							TimeUnit.MILLISECONDS.sleep(20);
 						}
 						return null;
 						}
@@ -159,6 +164,7 @@ public class MainMenu extends JFrame{
 	
 	void showPlanets(JPanel panelLeft) {
 		panelLeft.removeAll();
+		panelLeft.repaint();
 		JLabel objects = new JLabel();
 		objects.setText(Wyswietl.bundle.getString("listObjText"));
 		objects.setFont(new Font("Arial", Font.PLAIN, 40));
