@@ -25,6 +25,12 @@ public class MainMenu extends JFrame{
 	static int d = 0; //chwilowa zmienna - odpala funkcje liczącze
 	double time = 5;
 	static JButton buttonStart;
+	
+	JButton buttonAdd;
+	JButton buttonEdit;
+	JButton buttonSettings;
+	JLabel objects;
+	
 	//koniec bzdur
 	public MainMenu() {
 		try {
@@ -63,19 +69,19 @@ public class MainMenu extends JFrame{
 		buttonStart.setForeground(Color.white);
 		panelCenter.add(buttonStart);
 		
-		JButton buttonAdd = new JButton(Wyswietl.bundle.getString("addObjText"));
+		buttonAdd = new JButton(Wyswietl.bundle.getString("addObjText"));
 		buttonAdd.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonAdd.setBackground(buttonColor);
 		buttonAdd.setForeground(Color.white);
 		panelCenter.add(buttonAdd);
 		
-		JButton buttonEdit = new JButton(Wyswietl.bundle.getString("editText"));
+		buttonEdit = new JButton(Wyswietl.bundle.getString("editText"));
 		buttonEdit.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonEdit.setBackground(buttonColor);
 		buttonEdit.setForeground(Color.white);
 		panelCenter.add(buttonEdit);
 
-		JButton buttonSettings = new JButton(Wyswietl.bundle.getString("settingsText"));
+		buttonSettings = new JButton(Wyswietl.bundle.getString("settingsText"));
 		buttonSettings.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonSettings.setBackground(buttonColor);
 		buttonSettings.setForeground(Color.white);
@@ -156,16 +162,24 @@ public class MainMenu extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				@SuppressWarnings("unused")
-				SettingsFrame sf = new SettingsFrame();
+				SettingsFrame sf = new SettingsFrame(that);
 			}
 		};
 		buttonSettings.addActionListener(settingsListener);
 	}
 	
+	public void language() {
+		buttonStart.setText(Wyswietl.bundle.getString("startText"));
+		buttonAdd.setText(Wyswietl.bundle.getString("addObjText"));
+		buttonEdit.setText(Wyswietl.bundle.getString("editText"));
+		buttonSettings.setText(Wyswietl.bundle.getString("settingsText"));
+		objects.setText(Wyswietl.bundle.getString("listObjText"));
+	}
+	
 	void showPlanets(JPanel panelLeft) {
 		panelLeft.removeAll();
 		panelLeft.repaint();
-		JLabel objects = new JLabel();
+		objects = new JLabel();
 		objects.setText(Wyswietl.bundle.getString("listObjText"));
 		objects.setFont(new Font("Arial", Font.PLAIN, 40));
 		objects.setForeground(Color.white);

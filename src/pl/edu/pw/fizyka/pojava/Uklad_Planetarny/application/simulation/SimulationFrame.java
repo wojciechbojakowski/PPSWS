@@ -145,7 +145,7 @@ public class SimulationFrame extends JFrame {
 				Planet nplanet = new Planet();
 				nplanet.setName("Nowa Planeta");
 				@SuppressWarnings("unused")
-				EditObjectFrame edit = new EditObjectFrame(nplanet);
+				EditObjectFrame edit = new EditObjectFrame(nplanet,jfxPanel);
 			}
 		};
 		addButton.addActionListener(addListener);

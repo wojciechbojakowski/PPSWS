@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.AmbientLight;
@@ -35,6 +36,7 @@ import javafx.util.Duration;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.MainMenu;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Planet;
 import javafx.beans.property.*;
+import javafx.concurrent.Task;
 
 @SuppressWarnings("serial")
 public class Simulation extends JFXPanel{
@@ -43,6 +45,8 @@ public class Simulation extends JFXPanel{
 		  private double anchorAngleY = 0;
 		  private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 		  private final DoubleProperty angleY = new SimpleDoubleProperty(0);
+		  
+		  SmartGroup root2;
 
     public void createScene() {
     	int WIDTH = this.getWidth();
@@ -139,27 +143,64 @@ public class Simulation extends JFXPanel{
     	 */
     private Scene createScene2() {
         SmartGroup  root  =  new SmartGroup();
+        root2=root;
         Scene  scene  =  new  Scene(root, Color.DARKBLUE);
         
         //root.getChildren().addAll(prepareLightSource());
         //Sphere sphere = new Sphere(50);
         for(Planet p : MainMenu.planets) {
-        	root.getChildren().add(renderPlanet(p));
-        	AnimationTimer timer = new AnimationTimer() {
-        	  	  @Override
-        	  	  public void handle(long now) {
-        	  		p.getSphere().setTranslateX(p.getPositionX());
-        	  		p.getSphere().setTranslateY(p.getPositionY());
-        	  		p.getSphere().setTranslateZ(p.getPositionZ());
-        	  		//System.out.println(p.getPositionX()+","+p.getPositionY()+", "+p.getPositionZ());
-        	  	  }
-        	};
-        	timer.start();
+        	addPlanetToScene(p);
+			/*
+			 * root.getChildren().add(renderPlanet(p)); AnimationTimer timer = new
+			 * AnimationTimer() {
+			 * 
+			 * @Override public void handle(long now) {
+			 * p.getSphere().setTranslateX(p.getPositionX());
+			 * p.getSphere().setTranslateY(p.getPositionY());
+			 * p.getSphere().setTranslateZ(p.getPositionZ());
+			 * //System.out.println(p.getPositionX()+","+p.getPositionY()+", "+p.
+			 * getPositionZ()); } }; timer.start();
+			 */
         }
         //root.getChildren().add(sphere);
         
         return (scene);
     }
+    
+    public void TaskAddPlanetToScene(Planet p) {
+    	Task<Void> task = new Task<Void>() {
+    	    protected Void call() throws Exception {
+    	    	Platform.runLater(() -> {
+                    addPlanetToScene(p);
+                    changeScene();
+                    //System.out.println("p added");
+                });
+    	        return null;
+    	    }
+    	};
+    	new Thread(task).start();
+    }
+    
+    public void changeScene() {
+    	Scene scene = createScene2();
+    	this.setScene(scene);
+    }
+    
+    public void addPlanetToScene(Planet p) {
+    	SmartGroup root = root2;
+    	root.getChildren().add(renderPlanet(p));
+    	AnimationTimer timer = new AnimationTimer() {
+  	  	  @Override
+  	  	  public void handle(long now) {
+  	  		p.getSphere().setTranslateX(p.getPositionX());
+  	  		p.getSphere().setTranslateY(p.getPositionY());
+  	  		p.getSphere().setTranslateZ(p.getPositionZ());
+  	  		//System.out.println(p.getPositionX()+","+p.getPositionY()+", "+p.getPositionZ());
+  	  	  }
+	  	};
+	  	timer.start();
+    }
+    
     	/**
     	 * Inicjuje generowanie przestrzeni i uruchamia możliwośc sterowana kamerą
     	 * @author Krasnoludki
@@ -187,6 +228,10 @@ public class Simulation extends JFXPanel{
     	//initMouseControl(root,scene);
         scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
+            	case N:
+                System.out.println(MainMenu.getPlanets().toString()+" h ");
+                System.out.println(root2.getChildren().toString());
+                break;
               case W:
                 camera.translateZProperty().set(camera.getTranslateZ() - 100);
                 break;

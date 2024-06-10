@@ -21,6 +21,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class SettingsFrame extends JFrame {
 	private JLabel text;
 	private JLabel text2;
+	MainMenu nie;
 	
 	private void initFrame() {
 		setTitle("Settings - PPSWS");
@@ -57,18 +58,22 @@ public class SettingsFrame extends JFrame {
         panelMain.add(languageSelect);
         
         JButton saveSettingsButton = new JButton(Wyswietl.bundle.getString("saveText"));
+        JButton saveFileButton = new JButton(Wyswietl.bundle.getString("saveToFile"));
         
         saveSettingsButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				text.setText(Wyswietl.bundle.getString("developmentText"));
 				text2.setText(Wyswietl.bundle.getString("authorText"));
+				saveSettingsButton.setText(Wyswietl.bundle.getString("saveText")+" "+Wyswietl.bundle.getString("settingsText"));
+				saveFileButton.setText(Wyswietl.bundle.getString("saveToFile"));
+				nie.language();
 				that.repaint();
 			}
         });
         panelMain.add(saveSettingsButton);
         
-        JButton saveFileButton = new JButton(Wyswietl.bundle.getString("saveToFile"));
+        
         saveFileButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -88,9 +93,10 @@ public class SettingsFrame extends JFrame {
         
         
 
-	public SettingsFrame() throws HeadlessException {
+	public SettingsFrame(MainMenu tak) throws HeadlessException {
 		initFrame();
 		this.setVisible(true);
+		nie = tak;
 	}
 	
 	public void save() {

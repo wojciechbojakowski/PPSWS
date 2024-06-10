@@ -23,6 +23,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import javafx.embed.swing.JFXPanel;
+import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation.Simulation;
+
 import java.awt.Color;
 
 @SuppressWarnings("serial")
@@ -31,7 +34,8 @@ public class EditObjectFrame extends JFrame {
 	private JPanel panelCenter;
 	private MainMenu that;
 	JTextField massText, radiusText;
-
+	Simulation jFXpanel;
+	Planet SecondPlanet;
 	
 	
 		
@@ -173,8 +177,14 @@ public class EditObjectFrame extends JFrame {
 						return null;
 						}
 					protected void done() {
-						that.showPlanets(that.panelLeft);
-						updateList(listaElementy);
+						if(jFXpanel!=null&&SecondPlanet!=null) {
+							jFXpanel.TaskAddPlanetToScene(SecondPlanet);
+							SecondPlanet=null;
+						}else {
+							that.showPlanets(that.panelLeft);
+							updateList(listaElementy);
+						}
+						close();
 					}
 				};worker.execute();
 				
@@ -293,6 +303,8 @@ public class EditObjectFrame extends JFrame {
 		that=t;
 		selectedPlanet = MainMenu.planets.get(0);
 		initFrame();
+		jFXpanel=null;
+		SecondPlanet=null;
 	}
 	
 	public EditObjectFrame(MainMenu t,Planet planet) throws HeadlessException {
@@ -300,11 +312,16 @@ public class EditObjectFrame extends JFrame {
 		MainMenu.planets.add(planet);
 		this.selectedPlanet=planet;
 		initFrame();
+		jFXpanel=null;
+		SecondPlanet=null;
 	}
 
-	public EditObjectFrame(Planet nplanet) {
+	public EditObjectFrame(Planet nplanet,Simulation panel) {
 		MainMenu.planets.add(nplanet);
 		this.selectedPlanet=nplanet;
+		SecondPlanet=nplanet;
+		jFXpanel=panel;
 		initFrame();
+		
 	}
 }
