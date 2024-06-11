@@ -6,6 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+
+/**
+ * @author Michał + Wojtek
+ */
+
 public class Functions {
 	static double  G=0.001;
 	static String fileName = "output.txt";
@@ -56,7 +61,7 @@ public class Functions {
 			ret = ret+i.getName()+",\t        ,\t       ,\t        ,\t         ,\t        ,\t";
 		}
 		ret = ret+"\n";
-		for(Planet i : MainMenu.planets) {
+		for(@SuppressWarnings("unused") Planet i : MainMenu.planets) {
 			ret=ret+"PositionX: , PositionY: , PositionZ: , VelocityX: , VelocityY: , VelocityZ: , ";
 		}
 		return ret;

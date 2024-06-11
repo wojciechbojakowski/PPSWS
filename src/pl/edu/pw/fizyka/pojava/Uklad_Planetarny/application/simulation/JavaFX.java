@@ -21,6 +21,9 @@ import javafx.scene.transform.Transform;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
+/**
+ * TEST CLASS not used in program
+ */
 public class JavaFX extends Application {
  
   private static final int WIDTH = 1000;

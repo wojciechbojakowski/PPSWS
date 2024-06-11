@@ -39,6 +39,9 @@ import javafx.beans.property.*;
 import javafx.concurrent.Task;
 
 @SuppressWarnings("serial")
+/**
+ * @author Wojtek
+ */
 public class Simulation extends JFXPanel{
 		private double anchorX, anchorY;
 		  private double anchorAngleX = 0;
@@ -120,7 +123,8 @@ public class Simulation extends JFXPanel{
     
     //Tworzenie slonca
     private final PointLight pointLight = new PointLight();
-    private Node[] prepareLightSource() {
+    @SuppressWarnings("unused")
+	private Node[] prepareLightSource() {
   	  AmbientLight ambientLight = new AmbientLight();
   	  ambientLight.setColor(Color.LIGHTSTEELBLUE);
   	  //return ambientLight;
@@ -292,7 +296,8 @@ public class Simulation extends JFXPanel{
   	  	}
     }
     
-    private void initBackground(Scene scene) {
+    @SuppressWarnings("unused")
+	private void initBackground(Scene scene) {
     	scene.setFill(Color.BLANCHEDALMOND);
     	Image image = new Image(getClass().getResourceAsStream("../../resources/background.jpeg"));
     	ImagePattern imgPattern = new ImagePattern(image);

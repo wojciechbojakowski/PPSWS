@@ -1,15 +1,10 @@
 package pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
-
-import javax.swing.SwingWorker;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -21,7 +16,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
 /**
- * Main Class in PPSWS
+ * Test Class in PPSWS not used in program
  * @author Wojciech Bojakowski
  * @since 16.03.2024
  */

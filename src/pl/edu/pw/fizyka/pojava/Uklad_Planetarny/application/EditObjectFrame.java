@@ -5,8 +5,6 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Locale;
-
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -23,12 +21,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import javafx.embed.swing.JFXPanel;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.simulation.Simulation;
 
 import java.awt.Color;
 
 @SuppressWarnings("serial")
+/**
+ * @author Wojtek
+ */
 public class EditObjectFrame extends JFrame {
 	private Planet selectedPlanet;
 	private JPanel panelCenter;
@@ -77,73 +77,73 @@ public class EditObjectFrame extends JFrame {
 		
 		
 		JPanel labelPanel = new JPanel();
-		JLabel nameLabel = new JLabel(Wyswietl.bundle.getString("nameText"));
+		JLabel nameLabel = new JLabel(Display.bundle.getString("nameText"));
 		labelPanel.add(nameLabel);
 		JTextField nameText = new JTextField(selectedPlanet.getName());
 		labelPanel.add(nameText);
 		panelCenter.add(labelPanel);
 		
 		JPanel massPanel = new JPanel();
-		JLabel massLabel = new JLabel(Wyswietl.bundle.getString("massText"));
+		JLabel massLabel = new JLabel(Display.bundle.getString("massText"));
 		massPanel.add(massLabel);
 		massText = new JTextField(Double.toString(selectedPlanet.getMass()));
 		massPanel.add(massText);
 		panelCenter.add(massPanel);
 		
 		JPanel radiusPanel = new JPanel();
-		JLabel radiusLabel = new JLabel(Wyswietl.bundle.getString("radiusText"));
+		JLabel radiusLabel = new JLabel(Display.bundle.getString("radiusText"));
 		radiusPanel.add(radiusLabel);
 		radiusText = new JTextField(Double.toString(selectedPlanet.getRadius()));
 		radiusPanel.add(radiusText);
 		panelCenter.add(radiusPanel);
 		
 		JPanel positionPanel = new JPanel();
-		JLabel pXLabel = new JLabel(Wyswietl.bundle.getString("pXText"));
+		JLabel pXLabel = new JLabel(Display.bundle.getString("pXText"));
 		positionPanel.add(pXLabel);
 		JTextField xPositionText = new JTextField(Double.toString(selectedPlanet.getPositionX()));
 		positionPanel.add(xPositionText);		
-		JLabel pYLabel = new JLabel(Wyswietl.bundle.getString("pYText"));
+		JLabel pYLabel = new JLabel(Display.bundle.getString("pYText"));
 		positionPanel.add(pYLabel);
 		JTextField yPositionText = new JTextField(Double.toString(selectedPlanet.getPositionY()));
 		positionPanel.add(yPositionText);		
-		JLabel pZLabel = new JLabel(Wyswietl.bundle.getString("pZText"));
+		JLabel pZLabel = new JLabel(Display.bundle.getString("pZText"));
 		positionPanel.add(pZLabel);
 		JTextField zPositionText = new JTextField(Double.toString(selectedPlanet.getPositionZ()));
 		positionPanel.add(zPositionText);
 		panelCenter.add(positionPanel);
 		
 		JPanel velocityPanel = new JPanel();
-		JLabel vXLabel = new JLabel(Wyswietl.bundle.getString("vXText"));
+		JLabel vXLabel = new JLabel(Display.bundle.getString("vXText"));
 		velocityPanel.add(vXLabel);
 		JTextField xVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityX()));
 		velocityPanel.add(xVelocityText);
-		JLabel vYLabel = new JLabel(Wyswietl.bundle.getString("vYText"));
+		JLabel vYLabel = new JLabel(Display.bundle.getString("vYText"));
 		velocityPanel.add(vYLabel);
 		JTextField yVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityY()));
 		velocityPanel.add(yVelocityText);
-		JLabel vZLabel = new JLabel(Wyswietl.bundle.getString("vZText"));
+		JLabel vZLabel = new JLabel(Display.bundle.getString("vZText"));
 		velocityPanel.add(vZLabel);
 		JTextField zVelocityText = new JTextField(Double.toString(selectedPlanet.getVelocityZ()));
 		velocityPanel.add(zVelocityText);
 		panelCenter.add(velocityPanel);
 		
 		JPanel accelerationPanel = new JPanel();
-		JLabel aXLabel = new JLabel(Wyswietl.bundle.getString("aXText"));
+		JLabel aXLabel = new JLabel(Display.bundle.getString("aXText"));
 		accelerationPanel.add(aXLabel);
 		JTextField xAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationX()));
 		accelerationPanel.add(xAccelerationText);
-		JLabel aYLabel = new JLabel(Wyswietl.bundle.getString("aYText"));
+		JLabel aYLabel = new JLabel(Display.bundle.getString("aYText"));
 		accelerationPanel.add(aYLabel);
 		JTextField yAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationY()));
 		accelerationPanel.add(yAccelerationText);
-		JLabel aZLabel = new JLabel(Wyswietl.bundle.getString("aZText"));
+		JLabel aZLabel = new JLabel(Display.bundle.getString("aZText"));
 		accelerationPanel.add(aZLabel);
 		JTextField zAccelerationText = new JTextField(Double.toString(selectedPlanet.getAccelerationZ()));
 		accelerationPanel.add(zAccelerationText);
 		panelCenter.add(accelerationPanel);
 		
 		JPanel endPanel = new JPanel();
-		JButton quitButton = new JButton(Wyswietl.bundle.getString("quitText"));
+		JButton quitButton = new JButton(Display.bundle.getString("quitText"));
 		quitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -151,7 +151,7 @@ public class EditObjectFrame extends JFrame {
 			}
 		});
 		
-		JButton saveButton = new JButton(Wyswietl.bundle.getString("saveText"));
+		JButton saveButton = new JButton(Display.bundle.getString("saveText"));
 		
 		ActionListener saveListener = new ActionListener() {//odpalanie funkcji z obliczeniami
 			@Override 
@@ -192,7 +192,7 @@ public class EditObjectFrame extends JFrame {
 		};
 		saveButton.addActionListener(saveListener);
 		
-		JButton deleteButton = new JButton(Wyswietl.bundle.getString("deleteText"));
+		JButton deleteButton = new JButton(Display.bundle.getString("deleteText"));
 
 		ActionListener deleteListener = new ActionListener() {//odpalanie funkcji z obliczeniami
 			@Override 
@@ -214,7 +214,7 @@ public class EditObjectFrame extends JFrame {
 		};
 		deleteButton.addActionListener(deleteListener);
 		
-		JButton changeTextureButton=new JButton(Wyswietl.bundle.getString("changeTexture"));
+		JButton changeTextureButton=new JButton(Display.bundle.getString("changeTexture"));
 		changeTextureButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

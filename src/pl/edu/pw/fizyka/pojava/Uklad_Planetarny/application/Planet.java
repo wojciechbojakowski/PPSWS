@@ -4,6 +4,9 @@ import java.util.Random;
 
 import javafx.scene.shape.Sphere;
 
+/**
+ * @author Michał
+ */
 public class Planet {
 	String name;
 	double position[] = new double[3];

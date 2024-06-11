@@ -36,7 +36,6 @@ public class MainMenu extends JFrame{
 		try {
 			icon = new ImageIcon("../resources/death-star-ico.png");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.setSize(1600,1000);
@@ -63,25 +62,25 @@ public class MainMenu extends JFrame{
 		title.setForeground(Color.white);
 		panelCenter.add(title);
 		
-		buttonStart = new JButton(Wyswietl.bundle.getString("startText"));
+		buttonStart = new JButton(Display.bundle.getString("startText"));
 		buttonStart.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonStart.setBackground(buttonColor);
 		buttonStart.setForeground(Color.white);
 		panelCenter.add(buttonStart);
 		
-		buttonAdd = new JButton(Wyswietl.bundle.getString("addObjText"));
+		buttonAdd = new JButton(Display.bundle.getString("addObjText"));
 		buttonAdd.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonAdd.setBackground(buttonColor);
 		buttonAdd.setForeground(Color.white);
 		panelCenter.add(buttonAdd);
 		
-		buttonEdit = new JButton(Wyswietl.bundle.getString("editText"));
+		buttonEdit = new JButton(Display.bundle.getString("editText"));
 		buttonEdit.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonEdit.setBackground(buttonColor);
 		buttonEdit.setForeground(Color.white);
 		panelCenter.add(buttonEdit);
 
-		buttonSettings = new JButton(Wyswietl.bundle.getString("settingsText"));
+		buttonSettings = new JButton(Display.bundle.getString("settingsText"));
 		buttonSettings.setFont(new Font("Arial", Font.PLAIN, 60));
 		buttonSettings.setBackground(buttonColor);
 		buttonSettings.setForeground(Color.white);
@@ -112,6 +111,7 @@ public class MainMenu extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				Planet nplanet = new Planet();
 				nplanet.setName("Nowa Planeta");
+				@SuppressWarnings("unused")
 				EditObjectFrame edit = new EditObjectFrame(that,nplanet);
 				//EditObjectFrame edit = new EditObjectFrame(that,nplanet);
 				//that.setVisible(false);
@@ -169,18 +169,18 @@ public class MainMenu extends JFrame{
 	}
 	
 	public void language() {
-		buttonStart.setText(Wyswietl.bundle.getString("startText"));
-		buttonAdd.setText(Wyswietl.bundle.getString("addObjText"));
-		buttonEdit.setText(Wyswietl.bundle.getString("editText"));
-		buttonSettings.setText(Wyswietl.bundle.getString("settingsText"));
-		objects.setText(Wyswietl.bundle.getString("listObjText"));
+		buttonStart.setText(Display.bundle.getString("startText"));
+		buttonAdd.setText(Display.bundle.getString("addObjText"));
+		buttonEdit.setText(Display.bundle.getString("editText"));
+		buttonSettings.setText(Display.bundle.getString("settingsText"));
+		objects.setText(Display.bundle.getString("listObjText"));
 	}
 	
 	void showPlanets(JPanel panelLeft) {
 		panelLeft.removeAll();
 		panelLeft.repaint();
 		objects = new JLabel();
-		objects.setText(Wyswietl.bundle.getString("listObjText"));
+		objects.setText(Display.bundle.getString("listObjText"));
 		objects.setFont(new Font("Arial", Font.PLAIN, 40));
 		objects.setForeground(Color.white);
 		panelLeft.add(objects);

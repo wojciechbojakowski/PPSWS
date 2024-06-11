@@ -8,12 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.time.LocalTime;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -25,9 +23,12 @@ import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.EditObjectFrame;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Functions;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.MainMenu;
 import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Planet;
-import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Wyswietl;
+import pl.edu.pw.fizyka.pojava.Uklad_Planetarny.application.Display;
 
 @SuppressWarnings("serial")
+/**
+ * @author Michał + Wojtek
+ */
 public class SimulationFrame extends JFrame {
 	private Simulation jfxPanel;
 	private JButton stopButton;
@@ -39,6 +40,7 @@ public class SimulationFrame extends JFrame {
 	private JPanel down;
 	private Component box;
 	private SimulationFrame tak;
+	@SuppressWarnings("unused")
 	private MainMenu that;
 	
 	public void updateTextTime() {
@@ -52,7 +54,7 @@ public class SimulationFrame extends JFrame {
 	private void createUpPanel() {
 		up.setLayout(new BoxLayout(up,BoxLayout.X_AXIS));
 		box = Box.createHorizontalStrut(tak.getWidth()-200);
-		menuButton = new JButton(Wyswietl.bundle.getString("menuText"));
+		menuButton = new JButton(Display.bundle.getString("menuText"));
 		timeText = Functions.getTime();
         timeLabel = new JTextField(timeText);
         timeLabel.setEnabled(false);
@@ -77,7 +79,7 @@ public class SimulationFrame extends JFrame {
 		tak = this;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
-		setTitle(Wyswietl.bundle.getString("appTitleText"));
+		setTitle(Display.bundle.getString("appTitleText"));
 		this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
                 //System.out.println("Size Changed");
@@ -90,8 +92,8 @@ public class SimulationFrame extends JFrame {
 		this.initFrameSimulation();
 		
         jfxPanel = new Simulation();
-        stopButton = new JButton(Wyswietl.bundle.getString("stopText"));
-        addButton = new JButton(Wyswietl.bundle.getString("addText"));
+        stopButton = new JButton(Display.bundle.getString("stopText"));
+        addButton = new JButton(Display.bundle.getString("addText"));
         
         //zatrzymywanie obliczeń
         ActionListener stopListener = new ActionListener() {
@@ -120,13 +122,13 @@ public class SimulationFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
 					protected Void doInBackground() throws Exception {
-						if(stopButton.getText() == Wyswietl.bundle.getString("stopText")) {			
+						if(stopButton.getText() == Display.bundle.getString("stopText")) {			
 							System.out.println("Sukces!!!!!");
-							stopButton.setText(Wyswietl.bundle.getString("resumeText"));
+							stopButton.setText(Display.bundle.getString("resumeText"));
 						}
-						else if(stopButton.getText() == Wyswietl.bundle.getString("resumeText")){
+						else if(stopButton.getText() == Display.bundle.getString("resumeText")){
 							System.out.println("Kolejny sukces!!!!!");
-							stopButton.setText(Wyswietl.bundle.getString("stopText"));
+							stopButton.setText(Display.bundle.getString("stopText"));
 						}	
 						//System.out.println("EDT: "+SwingUtilities.isEventDispatchThread());
 						return null;

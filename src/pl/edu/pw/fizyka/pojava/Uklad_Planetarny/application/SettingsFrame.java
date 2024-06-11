@@ -18,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
+/**
+ * @author Wojtek
+ */
 public class SettingsFrame extends JFrame {
 	private JLabel text;
 	private JLabel text2;
@@ -41,14 +44,14 @@ public class SettingsFrame extends JFrame {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if(languageSelect.getSelectedItem()=="Polski") {
-					Wyswietl.changeLocale("PL");
+					Display.changeLocale("PL");
 				}else if(languageSelect.getSelectedItem()=="English"){
-					Wyswietl.changeLocale("ENG");
+					Display.changeLocale("ENG");
 				}else{
 					System.out.println("Ajaj");
 				}
-				text.setText(Wyswietl.bundle.getString("developmentText"));
-				text2.setText(Wyswietl.bundle.getString("authorText"));
+				text.setText(Display.bundle.getString("developmentText"));
+				text2.setText(Display.bundle.getString("authorText"));
 				that.repaint();
 			}
         	
@@ -57,16 +60,16 @@ public class SettingsFrame extends JFrame {
         languageSelect.setEditable(true);
         panelMain.add(languageSelect);
         
-        JButton saveSettingsButton = new JButton(Wyswietl.bundle.getString("saveText"));
-        JButton saveFileButton = new JButton(Wyswietl.bundle.getString("saveToFile"));
+        JButton saveSettingsButton = new JButton(Display.bundle.getString("saveText"));
+        JButton saveFileButton = new JButton(Display.bundle.getString("saveToFile"));
         
         saveSettingsButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				text.setText(Wyswietl.bundle.getString("developmentText"));
-				text2.setText(Wyswietl.bundle.getString("authorText"));
-				saveSettingsButton.setText(Wyswietl.bundle.getString("saveText")+" "+Wyswietl.bundle.getString("settingsText"));
-				saveFileButton.setText(Wyswietl.bundle.getString("saveToFile"));
+				text.setText(Display.bundle.getString("developmentText"));
+				text2.setText(Display.bundle.getString("authorText"));
+				saveSettingsButton.setText(Display.bundle.getString("saveText")+" "+Display.bundle.getString("settingsText"));
+				saveFileButton.setText(Display.bundle.getString("saveToFile"));
 				nie.language();
 				that.repaint();
 			}
@@ -84,9 +87,9 @@ public class SettingsFrame extends JFrame {
         
         
         
-        this.text = new JLabel(Wyswietl.bundle.getString("developmentText"));
+        this.text = new JLabel(Display.bundle.getString("developmentText"));
         panelMain.add(this.text);
-        this.text2 = new JLabel(Wyswietl.bundle.getString("authorText"));
+        this.text2 = new JLabel(Display.bundle.getString("authorText"));
         panelMain.add(this.text2);
         
 	}
